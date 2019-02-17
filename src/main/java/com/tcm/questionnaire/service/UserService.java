@@ -2,7 +2,7 @@ package com.tcm.questionnaire.service;
 
 import com.tcm.questionnaire.po.UserPO;
 
-public interface TestService {
+public interface UserService {
 
-    UserPO selectById(Integer id);
+    UserPO selectByUsername(String username);
 }

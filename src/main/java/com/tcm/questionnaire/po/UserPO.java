@@ -1,34 +1,26 @@
 package com.tcm.questionnaire.po;
 
-public class UserPO {
+import com.tcm.questionnaire.common.BasePO;
 
-    private Integer id;
+public class UserPO extends BasePO {
 
-    private String name;
+    private String username;
 
-    private String address;
+    private String password;
 
-    public Integer getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

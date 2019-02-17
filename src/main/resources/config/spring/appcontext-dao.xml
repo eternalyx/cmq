@@ -7,7 +7,7 @@
 
     <context:property-placeholder location="classpath*:config/mybatis/jdbc.properties"></context:property-placeholder>
 
-    <!--<bean id="tcmDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">-->
+    <!--<po id="tcmDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">-->
     <bean id="tcmDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${jdbc.url}"/>
@@ -23,7 +23,7 @@
             <!--</list>-->
         <!--</property>-->
         <property name="typeAliasesPackage" value="com.tcm.questionnaire.po"/>
-        <!--<property name="configuration" value="classpath:config/mybatis/mybatis-configuration.xml"/>-->
+        <property name="configLocation" value="classpath:config/mybatis/mybatis-configuration.xml"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
