@@ -1,14 +1,15 @@
 package com.tcm.questionnaire.controller;
 
+import com.sun.tracing.dtrace.Attributes;
 import com.tcm.questionnaire.common.BaseResult;
+import com.tcm.questionnaire.common.SystemThreadLocal;
 import com.tcm.questionnaire.po.UserPO;
 import com.tcm.questionnaire.service.UserService;
-import com.tcm.questionnaire.utils.DigestUtils;
+import com.tcm.questionnaire.utils.DigestUtil;
+import com.tcm.questionnaire.utils.JwtUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -32,12 +33,23 @@ public class LoginController {
             return result.fail("用户不存在");
         }
 
-        if(!DigestUtils.checkPassword(password.trim(), user.getPassword())){
+        if(!DigestUtil.checkPassword(password.trim(), user.getPassword())){
             return result.fail("密码不正确");
         }
 
-        return result.data("user", user.getUsername() + user.getCreateBy())
-                .data("token", "xxxx");
+        String token = JwtUtil.sign(user.getId());
+        if(StringUtils.isEmpty(token)){
+            return result.fail("认证失败");
+        }
+
+        return result.success("登录成功").data("token", token);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "eternal-token", method = RequestMethod.GET)
+    public BaseResult eternalToken(String currentUserId){
+
+        return new BaseResult().success("认证成功").data("userId", SystemThreadLocal.getSystemUserId());
     }
 
 }

@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class DigestUtils {
+public class DigestUtil {
 
     /**
      * 利用MD5进行加密
@@ -26,7 +26,6 @@ public class DigestUtils {
         }catch (Exception e){
             e.printStackTrace();
         }
-
         return null;
     }
 
