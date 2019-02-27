@@ -75,4 +75,14 @@ public class BasePO {
                 ", isDeleted=" + isDeleted +
                 '}';
     }
+
+    public void insert(String createBy){
+        this.createBy = createBy;
+        this.lastUpdateBy = createBy;
+        this.isDeleted = 0;
+    }
+
+    public void update(String lastUpdateBy){
+        this.lastUpdateBy = lastUpdateBy;
+    }
 }

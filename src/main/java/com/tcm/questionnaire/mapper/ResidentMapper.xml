@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.tcm.questionnaire.mapper.ResidentMapper">
+
+    <sql id="selectSql">
+        SELECT
+          `id`,
+          `avatar`,
+          `name`,
+          `sex`,
+          `age`,
+          `birthday`,
+          `id_card_number`,
+          `permanent_address`,
+          `residence_address`,
+          `district_id`,
+          `create_by`,
+          `create_time`,
+          `last_update_by`,
+          `last_update_time`,
+          `is_deleted`
+    </sql>
+
+    <select id="findByCondition" resultType="com.tcm.questionnaire.po.ResidentPO">
+        <include refid="selectSql"/>
+        from sys_resident
+        where is_deleted=0 and district_id=#{districtId}
+        <if test="condition != null">
+            and ( name like #{condition} or id_card_number like #{condition})
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tcm.questionnaire.po.ResidentPO">
+        INSERT INTO sys_resident
+        (
+          `avatar`,
+          `name`,
+          `sex`,
+          `age`,
+          `birthday`,
+          `id_card_number`,
+          `permanent_address`,
+          `residence_address`,
+          `district_id`,
+          `create_by`,
+          `create_time`,
+          `last_update_by`,
+          `last_update_time`,
+          `is_deleted`
+        )
+        VALUES(
+          #{avatar},
+          #{name},
+          #{sex},
+          #{age},
+          #{birthday},
+          #{idCardNumber},
+          #{permanentAddress},
+          #{residenceAddress},
+          #{districtId},
+          #{createBy},
+          now(),
+          #{lastUpdateBy},
+          now(),
+          #{isDeleted}
+        )
+    </insert>
+
+
+</mapper>

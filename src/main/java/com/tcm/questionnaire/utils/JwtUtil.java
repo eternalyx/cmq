@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.tcm.questionnaire.po.DoctorPO;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class JwtUtil {
      * 生成token
      * 过期时间：不过期
      */
-    public static String sign(Integer userId){
+    public static String sign(DoctorPO doctor){
         try{
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
             //header information
@@ -34,7 +35,9 @@ public class JwtUtil {
             header.put("alg", "HS256");
             return JWT.create()
                     .withHeader(header)
-                    .withClaim("userId", userId)
+                    .withClaim("id", doctor.getId())
+//                    .withClaim("username", doctor.getName())
+                    .withClaim("mobile", doctor.getMobile())
                     .sign(algorithm);
         }catch (Exception e){
             return null;
@@ -59,7 +62,7 @@ public class JwtUtil {
     /**
      * 解析token
      */
-    public static Integer parse(String token, String key){
+    public static Claim parseClaim(String token, String key){
         if(StringUtils.isEmpty(token) || StringUtils.isEmpty(key)){
             return null;
         }
@@ -69,17 +72,26 @@ public class JwtUtil {
             JWTVerifier verifier = JWT.require(algorithm).build();
 
             DecodedJWT decodedJWT = verifier.verify(token);
-            Claim claim = decodedJWT.getClaim(key);
-
-            if(null == claim){
-                return null;
-            }
-            return claim.asInt();
+            return decodedJWT.getClaim(key);
         }catch (Exception e){
             return null;
         }
 
     }
 
+    public static Integer parseInteger(String token, String key){
+        Claim claim = parseClaim(token, key);
+        if(null == claim){
+            return null;
+        }
+        return claim.asInt();
+    }
 
+    public static String parseString(String token, String key){
+        Claim claim = parseClaim(token, key);
+        if(null == claim){
+            return null;
+        }
+        return claim.asString();
+    }
 }

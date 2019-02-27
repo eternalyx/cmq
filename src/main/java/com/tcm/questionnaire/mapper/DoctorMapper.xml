@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.tcm.questionnaire.mapper.DoctorMapper">
+
+    <sql id="selectSql">
+        SELECT
+          `id`,
+          `name`,
+          `avatar`,
+          `mobile`,
+          `password`,
+          `sex`,
+          `id_card_number`,
+          `organization`,
+          `create_by`,
+          `create_time`,
+          `last_update_by`,
+          `last_update_time`,
+          `is_deleted`
+    </sql>
+
+    <select id="selectById" resultType="com.tcm.questionnaire.po.DoctorPO">
+        <include refid="selectSql"/>
+        from sys_doctor
+        where id=#{id}
+    </select>
+
+    <select id="selectByName" resultType="com.tcm.questionnaire.po.DoctorPO">
+        <include refid="selectSql"/>
+        from sys_doctor
+        where name=#{name}
+    </select>
+
+    <select id="selectByMobile" resultType="com.tcm.questionnaire.po.DoctorPO">
+        <include refid="selectSql"/>
+        from sys_doctor
+        where mobile=#{mobile}
+    </select>
+
+    <update id="changePassword">
+        update sys_doctor
+        <set>
+            password=#{password}
+        </set>
+        where id=#{id}
+    </update>
+
+</mapper>

@@ -3,6 +3,7 @@ package com.tcm.questionnaire.interceptor;
 import com.alibaba.fastjson.JSON;
 import com.tcm.questionnaire.common.BaseResult;
 import com.tcm.questionnaire.common.SystemThreadLocal;
+import com.tcm.questionnaire.common.SystemUser;
 import com.tcm.questionnaire.utils.JwtUtil;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -22,11 +23,12 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         //get token from request header
         String token = httpServletRequest.getHeader("token");
+
         if(!StringUtils.isEmpty(token)){
             boolean verify = JwtUtil.verify(token);
             if(verify){
-                Integer userId = JwtUtil.parse(token, "userId");
-                SystemThreadLocal.setSystemUserId(userId);
+                SystemUser user = new SystemUser(JwtUtil.parseInteger(token, "id"), JwtUtil.parseString(token, "mobile"));
+                SystemThreadLocal.setSystemUser(user);
                 return true;
             }
         }
