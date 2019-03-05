@@ -1,2 +1,2 @@
-# questionnaire
-traditional Chinese medicine
+# Chinese Medicine Questionnaire
+A simple project using spring, spring mvc and mybatis.

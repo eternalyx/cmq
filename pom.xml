@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.tcm</groupId>
-  <artifactId>questionnaire</artifactId>
+  <artifactId>chinese-medicine-questionnaire</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>questionnaire</name>
+  <name>chinese-medicine-questionnaire</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -46,24 +46,6 @@
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>1.2</version>
-    </dependency>
-    <!-- mysql驱动包 -->
-    <!-- 版本过低可能导致建立connection失败 -->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.15</version>
-    </dependency>
-    <!-- mybatis -->
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis</artifactId>
-      <version>3.4.6</version>
-    </dependency>
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis-spring</artifactId>
-      <version>1.3.2</version>
     </dependency>
     <!-- springframework -->
     <dependency>
@@ -107,29 +89,45 @@
       <artifactId>aspectjweaver</artifactId>
       <version>1.8.9</version>
     </dependency>
+    <!-- mysql驱动包 -->
+    <!-- 版本过低可能导致建立connection失败 -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.15</version>
+    </dependency>
+    <!-- mybatis -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.4.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>1.3.2</version>
+    </dependency>
     <!-- others -->
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.4</version>
-    </dependency>
-    <!-- resolve: no converter found for return value of type -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.9.1</version>
-    </dependency>
-    <!-- jwt token -->
+    <!-- java web token -->
     <dependency>
       <groupId>com.auth0</groupId>
       <artifactId>java-jwt</artifactId>
       <version>3.7.0</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
       <version>1.2.47</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.9.1</version>
     </dependency>
     <dependency>
       <groupId>joda-time</groupId>
@@ -139,7 +137,8 @@
   </dependencies>
 
   <build>
-    <finalName>questionnaire</finalName>
+    <finalName>chinese-medicine-questionnaire</finalName>
+
     <resources>
       <resource>
         <directory>/src/main/resources</directory>
@@ -154,6 +153,7 @@
         </includes>
       </resource>
     </resources>
+
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
@@ -193,4 +193,5 @@
       </plugins>
     </pluginManagement>
   </build>
+
 </project>

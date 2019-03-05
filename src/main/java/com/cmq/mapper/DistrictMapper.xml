@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cmq.mapper.DistrictMapper">
+
+    <sql id="selectSql">
+        select
+          `id`,
+          `name`,
+          `short_name`,
+          `level`,
+          `sort`,
+          `parent_id`,
+          `create_by`,
+          `create_time`,
+          `last_update_by`,
+          `last_update_time`,
+          `is_deleted`
+    </sql>
+
+    <select id="select" resultType="com.cmq.po.DistrictPO">
+        <include refid="selectSql"/>
+        from sys_district
+        where
+          id=#{id}
+          and is_deleted=0
+    </select>
+
+    <select id="find" resultType="com.cmq.po.DistrictPO">
+        <include refid="selectSql"/>
+        from sys_district
+        where
+          id in <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+          and is_deleted=0
+    </select>
+</mapper>

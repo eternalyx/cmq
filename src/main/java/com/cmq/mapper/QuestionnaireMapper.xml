@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cmq.mapper.QuestionnaireMapper">
+
+    <sql id="selectSql">
+        select
+          `id`,
+          `resident_id`,
+          `doctor_id`,
+          `options`,
+          `qixu`,
+          `yangxu`,
+          `yinxu`,
+          `tanshi`,
+          `shire`,
+          `xueyu`,
+          `qiyu`,
+          `tebing`,
+          `pinghe`,
+          `create_by`,
+          `create_time`,
+          `last_update_by`,
+          `last_update_time`,
+          `is_deleted`
+    </sql>
+
+    <select id="select" resultType="com.cmq.po.QuestionnairePO">
+      <include refid="selectSql"/>
+      from bus_questionnaire
+      where
+        id=#{id}
+        and is_deleted=0
+    </select>
+
+    <select id="find" resultType="com.cmq.po.QuestionnairePO">
+      <include refid="selectSql"/>
+      from bus_questionnaire
+      where
+        id in <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+        and is_deleted=0
+      order by create_time desc
+    </select>
+
+    <select id="findByResidentId" resultType="com.cmq.po.QuestionnairePO">
+      <include refid="selectSql"/>
+      from bus_questionnaire
+      where
+        resident_id=#{residentId}
+        and is_deleted=0
+      order by create_time desc
+    </select>
+
+    <select id="findLastEveryResident" resultType="com.cmq.po.QuestionnairePO">
+      select resident_id, MAX(id) AS id
+      from bus_questionnaire
+      where
+        resident_id in <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+        and is_deleted=0
+      group by resident_id
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.cmq.po.QuestionnairePO">
+        insert into bus_questionnaire
+        (
+          `resident_id`,
+          `doctor_id`,
+          `options`,
+          `qixu`,
+          `yangxu`,
+          `yinxu`,
+          `tanshi`,
+          `shire`,
+          `xueyu`,
+          `qiyu`,
+          `tebing`,
+          `pinghe`,
+          `create_by`,
+          `create_time`,
+          `last_update_by`,
+          `last_update_time`,
+          `is_deleted`
+        )
+        values (
+          #{residentId},
+          #{doctorId},
+          #{options},
+          #{qixu},
+          #{yangxu},
+          #{yinxu},
+          #{tanshi},
+          #{shire},
+          #{xueyu},
+          #{qiyu},
+          #{tebing},
+          #{pinghe},
+          #{createBy},
+          now(),
+          #{lastUpdateBy},
+          now(),
+          0
+        )
+    </insert>
+
+    <update id="update" parameterType="com.cmq.po.QuestionnairePO">
+      update bus_questionnaire
+      <set>
+        <if test="options != null">options=#{options},</if>
+        <if test="qixu != null">qixu=#{qixu},</if>
+        <if test="yangxu != null">yangxu=#{yangxu},</if>
+        <if test="yinxu != null">yinxu=#{yinxu},</if>
+        <if test="tanshi != null">tanshi=#{tanshi},</if>
+        <if test="shire != null">shire=#{shire},</if>
+        <if test="xueyu != null">xueyu=#{xueyu},</if>
+        <if test="qiyu != null">qiyu=#{qiyu},</if>
+        <if test="tebing != null">tebing=#{tebing},</if>
+        <if test="pinghe != null">pinghe=#{pinghe},</if>
+        last_update_by=#{lastUpdateBy},
+        last_update_time=now()
+      </set>
+      where
+        id=#{id}
+        and is_deleted=0
+    </update>
+
+</mapper>
