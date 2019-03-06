@@ -44,7 +44,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     public int insert(QuestionnairePO questionnairePO) {
         try{
             DoctorPO currentLoggedInDoctor = doctorService.select(CmqSystem.getCurrentLoggedInUser().getId());
-            questionnairePO.insert(currentLoggedInDoctor.getName());
+            questionnairePO.insert(currentLoggedInDoctor.getId(), currentLoggedInDoctor.getName());
 
             return questionnaireMapper.insert(questionnairePO);
         }catch (Exception e){
@@ -57,7 +57,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     public int update(QuestionnairePO questionnairePO) {
         try{
             DoctorPO currentLoggedInDoctor = doctorService.select(CmqSystem.getCurrentLoggedInUser().getId());
-            questionnairePO.update(currentLoggedInDoctor.getName());
+            questionnairePO.update(currentLoggedInDoctor.getId(), currentLoggedInDoctor.getName());
 
             return questionnaireMapper.update(questionnairePO);
         }catch (Exception e){

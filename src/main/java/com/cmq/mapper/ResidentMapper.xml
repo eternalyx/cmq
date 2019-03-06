@@ -15,9 +15,11 @@
           `permanent_address`,
           `residence_address`,
           `district_id`,
-          `create_by`,
+          `creator_id`,
+          `creator_name`,
           `create_time`,
-          `last_update_by`,
+          `last_update_id`,
+          `last_update_name`,
           `last_update_time`,
           `is_deleted`
     </sql>
@@ -51,9 +53,11 @@
           `permanent_address`,
           `residence_address`,
           `district_id`,
-          `create_by`,
+          `creator_id`,
+          `creator_name`,
           `create_time`,
-          `last_update_by`,
+          `last_update_id`,
+          `last_update_name`,
           `last_update_time`,
           `is_deleted`
         )
@@ -67,9 +71,11 @@
           #{permanentAddress},
           #{residenceAddress},
           #{districtId},
-          #{createBy},
+          #{creatorId},
+          #{creatorName},
           now(),
-          #{lastUpdateBy},
+          #{lastUpdateId},
+          #{lastUpdateName},
           now(),
           0
         )

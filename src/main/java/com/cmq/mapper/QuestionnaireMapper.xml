@@ -18,9 +18,11 @@
           `qiyu`,
           `tebing`,
           `pinghe`,
-          `create_by`,
+          `creator_id`,
+          `creator_name`,
           `create_time`,
-          `last_update_by`,
+          `last_update_id`,
+          `last_update_name`,
           `last_update_time`,
           `is_deleted`
     </sql>
@@ -75,9 +77,11 @@
           `qiyu`,
           `tebing`,
           `pinghe`,
-          `create_by`,
+          `creator_id`,
+          `creator_name`,
           `create_time`,
-          `last_update_by`,
+          `last_update_id`,
+          `last_update_name`,
           `last_update_time`,
           `is_deleted`
         )
@@ -94,9 +98,11 @@
           #{qiyu},
           #{tebing},
           #{pinghe},
-          #{createBy},
+          #{creatorId},
+          #{creatorName},
           now(),
-          #{lastUpdateBy},
+          #{lastUpdateId},
+          #{lastUpdateName},
           now(),
           0
         )
@@ -115,7 +121,8 @@
         <if test="qiyu != null">qiyu=#{qiyu},</if>
         <if test="tebing != null">tebing=#{tebing},</if>
         <if test="pinghe != null">pinghe=#{pinghe},</if>
-        last_update_by=#{lastUpdateBy},
+        last_update_id=#{lastUpdateId},
+        last_update_name=#{lastUpdateName},
         last_update_time=now()
       </set>
       where

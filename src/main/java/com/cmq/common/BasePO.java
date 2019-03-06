@@ -6,11 +6,15 @@ public class BasePO {
 
     private Integer id;
 
-    private String createBy;
+    private Integer creatorId;
+
+    private String creatorName;
 
     private Date createTime;
 
-    private String lastUpdateBy;
+    private Integer lastUpdateId;
+
+    private String lastUpdateName;
 
     private Date lastUpdateTime;
 
@@ -24,12 +28,20 @@ public class BasePO {
         this.id = id;
     }
 
-    public String getCreateBy() {
-        return createBy;
+    public Integer getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
+    public void setCreatorId(Integer creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
     }
 
     public Date getCreateTime() {
@@ -40,12 +52,20 @@ public class BasePO {
         this.createTime = createTime;
     }
 
-    public String getLastUpdateBy() {
-        return lastUpdateBy;
+    public Integer getLastUpdateId() {
+        return lastUpdateId;
     }
 
-    public void setLastUpdateBy(String lastUpdateBy) {
-        this.lastUpdateBy = lastUpdateBy;
+    public void setLastUpdateId(Integer lastUpdateId) {
+        this.lastUpdateId = lastUpdateId;
+    }
+
+    public String getLastUpdateName() {
+        return lastUpdateName;
+    }
+
+    public void setLastUpdateName(String lastUpdateName) {
+        this.lastUpdateName = lastUpdateName;
     }
 
     public Date getLastUpdateTime() {
@@ -64,13 +84,15 @@ public class BasePO {
         this.isDeleted = isDeleted;
     }
 
-    public void insert(String createBy){
-        this.createBy = createBy;
-        this.lastUpdateBy = createBy;
-        this.isDeleted = 0;
+    public void insert(Integer creatorId, String creatorName){
+        this.creatorId = creatorId;
+        this.creatorName = creatorName;
+        this.lastUpdateId = creatorId;
+        this.lastUpdateName = creatorName;
     }
 
-    public void update(String lastUpdateBy){
-        this.lastUpdateBy = lastUpdateBy;
+    public void update(Integer lastUpdateId, String lastUpdateName){
+        this.lastUpdateId = lastUpdateId;
+        this.lastUpdateName = lastUpdateName;
     }
 }

@@ -35,7 +35,7 @@ public class ResidentServiceImpl implements ResidentService {
     public int insert(ResidentPO residentPO) {
         try{
             DoctorPO currentLoggedInDoctor = doctorService.select(CmqSystem.getCurrentLoggedInUser().getId());
-            residentPO.insert(currentLoggedInDoctor.getName());
+            residentPO.insert(currentLoggedInDoctor.getId(), currentLoggedInDoctor.getName());
             residentPO.setAge(CommonUtil.calculateAgeByBirthday(residentPO.getBirthday()));
 
             //todo parse permanentAddress or residenceAddress to distirct id

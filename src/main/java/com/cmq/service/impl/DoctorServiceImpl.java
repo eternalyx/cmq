@@ -39,7 +39,7 @@ public class DoctorServiceImpl implements DoctorService {
     public int update(DoctorPO doctorPO) {
         try{
             DoctorPO currentLoggedInDoctor = doctorMapper.select(CmqSystem.getCurrentLoggedInUser().getId());
-            doctorPO.update(currentLoggedInDoctor.getName());
+            doctorPO.update(currentLoggedInDoctor.getId(), currentLoggedInDoctor.getName());
 
             return doctorMapper.update(doctorPO);
         }catch (Exception e){

@@ -13,9 +13,11 @@
           `sex`,
           `id_card_number`,
           `organization`,
-          `create_by`,
+          `creator_id`,
+          `creator_name`,
           `create_time`,
-          `last_update_by`,
+          `last_update_id`,
+          `last_update_name`,
           `last_update_time`,
           `is_deleted`
     </sql>
@@ -61,7 +63,8 @@
             <if test="mobile != null">mobile=#{mobile},</if>
             <if test="idCardNumber != null">id_card_number=#{idCardNumber},</if>
             <if test="organization != null">organization=#{organization},</if>
-            last_update_by=#{lastUpdateBy},
+            last_update_id=#{lastUpdateId},
+            last_update_name=#{lastUpdateName},
             last_update_time=now()
         </set>
         where

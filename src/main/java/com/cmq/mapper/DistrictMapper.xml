@@ -11,9 +11,11 @@
           `level`,
           `sort`,
           `parent_id`,
-          `create_by`,
+          `creator_id`,
+          `creator_name`,
           `create_time`,
-          `last_update_by`,
+          `last_update_id`,
+          `last_update_name`,
           `last_update_time`,
           `is_deleted`
     </sql>
