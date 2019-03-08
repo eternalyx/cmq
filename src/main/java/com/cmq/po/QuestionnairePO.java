@@ -6,6 +6,9 @@ public class QuestionnairePO extends BasePO {
 
     private Integer residentId;
 
+    /**
+     * 等价于creator_id,创建医生id
+     */
     private Integer doctorId;
 
     /** 辨识题33题答案**/

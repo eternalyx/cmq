@@ -23,7 +23,7 @@
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.cmq.mapper"/>
-        <property name="sqlSessionFactoryBeanName" value="tcmSqlSessionFactory"/>
+        <property name="sqlSessionFactoryBeanName" value="cmqSqlSessionFactory"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

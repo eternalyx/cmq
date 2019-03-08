@@ -103,7 +103,7 @@ public class QuestionnaireController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/list-by-resident")
+    @RequestMapping(value = "/list-by-resident", method = RequestMethod.GET)
     public BaseResult findQuestionnairesByResident(int residentId){
         List<QuestionnaireResponseBO> bos = new ArrayList<>();
 
@@ -149,6 +149,8 @@ public class QuestionnaireController {
         BeanUtils.copyProperties(questionnaireRequestBO, questionnairePO);
 
         if(questionnairePO.getId() == null){
+            questionnairePO.setDoctorId(CmqSystem.getCurrentLoggedInUser().getId());
+
             int insert = questionnaireService.insert(questionnairePO);
 
             if(insert != 1){
@@ -157,7 +159,7 @@ public class QuestionnaireController {
             return result.success("新增辨识结果成功").data("id", questionnairePO.getId());
         }else{
             //校验是否为本人（医生）的辨识结果
-            if(!questionnairePO.getDoctorId().equals(CmqSystem.getCurrentLoggedInUser().getId())){
+            if(!CmqSystem.getCurrentLoggedInUser().getId().equals(questionnairePO.getDoctorId())){
                 return result.fail("无权限修改");
             }
 

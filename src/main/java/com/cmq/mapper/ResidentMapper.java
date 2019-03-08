@@ -13,7 +13,8 @@ public interface ResidentMapper {
      * @param condition 姓名or身份证号
      * @return
      */
-    List<ResidentPO> findByCondition(@Param("districtId") int districtId, @Param("condition") String condition);
+    List<ResidentPO> findByCondition(@Param("districtId") int districtId, @Param("doctorId") int doctorId,
+                                     @Param("condition") String condition);
 
     int insert(ResidentPO residentPO);
 }

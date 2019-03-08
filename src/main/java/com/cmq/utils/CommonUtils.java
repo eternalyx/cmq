@@ -3,7 +3,7 @@ package com.cmq.utils;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CommonUtil {
+public class CommonUtils {
 
     /**
      * 年龄计算

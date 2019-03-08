@@ -4,7 +4,7 @@ import com.cmq.common.BaseResult;
 import com.cmq.common.CmqSystem;
 import com.cmq.po.DoctorPO;
 import com.cmq.service.DoctorService;
-import com.cmq.utils.DigestUtil;
+import com.cmq.utils.DigestUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +31,9 @@ public class DoctorController {
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public BaseResult update(@RequestBody DoctorPO doctorPO){
+        //修改当前登录村医的个人信息
+        doctorPO.setId(CmqSystem.getCurrentLoggedInUser().getId());
+
         int update = doctorService.update(doctorPO);
 
         if(update != 1){
@@ -53,11 +56,11 @@ public class DoctorController {
         }
 
         DoctorPO doctorPO = doctorService.select(CmqSystem.getCurrentLoggedInUser().getId());
-        if(!DigestUtil.checkPassword(oldPassword.trim(), doctorPO.getPassword())){
+        if(!DigestUtils.checkPassword(oldPassword.trim(), doctorPO.getPassword())){
             return result.fail("旧密码不正确");
         }
 
-        int change = doctorService.changePassword(doctorPO.getId(), DigestUtil.EncoderByMD5(newPassword));
+        int change = doctorService.changePassword(doctorPO.getId(), DigestUtils.EncoderByMD5(newPassword));
         if(change != 1){
             return result.fail("修改密码失败");
         }

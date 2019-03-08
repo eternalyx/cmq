@@ -8,7 +8,7 @@ import java.security.MessageDigest;
 /**
  * 密码加密&解密
  */
-public class DigestUtil {
+public class DigestUtils {
 
     /**
      * 利用MD5进行加密

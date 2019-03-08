@@ -1,11 +1,15 @@
 package com.cmq.controller.app;
 
 import com.cmq.common.BaseResult;
+import com.cmq.common.ConfigKeyEnum;
+import com.cmq.po.ConfigPO;
 import com.cmq.po.DoctorPO;
+import com.cmq.service.ConfigService;
 import com.cmq.service.DoctorService;
-import com.cmq.utils.DigestUtil;
-import com.cmq.utils.JwtUtil;
+import com.cmq.utils.DigestUtils;
+import com.cmq.utils.JwtUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +20,9 @@ public class LoginController {
 
     @Resource
     private DoctorService doctorService;
+
+    @Resource
+    private ConfigService configService;
 
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -31,11 +38,11 @@ public class LoginController {
             return result.fail("用户不存在");
         }
 
-        if(!DigestUtil.checkPassword(password.trim(), doctor.getPassword())){
+        if(!DigestUtils.checkPassword(password.trim(), doctor.getPassword())){
             return result.fail("密码不正确");
         }
 
-        String token = JwtUtil.sign(doctor);
+        String token = JwtUtils.sign(doctor);
         if(StringUtils.isEmpty(token)){
             return result.fail("系统错误");
         }
@@ -44,9 +51,13 @@ public class LoginController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/contact-info", method = RequestMethod.GET)
+    @RequestMapping(value = "/contact-us", method = RequestMethod.GET)
     public BaseResult contactInfo(){
-        return new BaseResult().success("").data("contactInfo", "请联系管理员xxx，电话xxxx，邮箱xxxx,工作时间24小时");
+        ConfigPO configPO = configService.selectByKey(ConfigKeyEnum.CONTACT_US_INFO.getKey());
+        if(ObjectUtils.isEmpty(configPO)){
+            return new BaseResult().success("请联系客服");
+        }
+        return new BaseResult().success("").data("contactUs", configPO.getValue());
     }
 
 }

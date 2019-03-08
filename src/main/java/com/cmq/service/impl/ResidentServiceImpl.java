@@ -6,7 +6,7 @@ import com.cmq.po.DoctorPO;
 import com.cmq.po.ResidentPO;
 import com.cmq.service.DoctorService;
 import com.cmq.service.ResidentService;
-import com.cmq.utils.CommonUtil;
+import com.cmq.utils.CommonUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,7 +28,10 @@ public class ResidentServiceImpl implements ResidentService {
 
     @Override
     public List<ResidentPO> findByCondition(int districtId, String condition) {
-        return residentMapper.findByCondition(districtId, condition);
+        //仅查询当前登录村医创建的村民
+        Integer doctorId = CmqSystem.getCurrentLoggedInUser().getId();
+
+        return residentMapper.findByCondition(districtId, doctorId, condition);
     }
 
     @Override
@@ -36,10 +39,8 @@ public class ResidentServiceImpl implements ResidentService {
         try{
             DoctorPO currentLoggedInDoctor = doctorService.select(CmqSystem.getCurrentLoggedInUser().getId());
             residentPO.insert(currentLoggedInDoctor.getId(), currentLoggedInDoctor.getName());
-            residentPO.setAge(CommonUtil.calculateAgeByBirthday(residentPO.getBirthday()));
-
-            //todo parse permanentAddress or residenceAddress to distirct id
-            residentPO.setDistrictId(-1);
+            residentPO.setAge(CommonUtils.calculateAgeByBirthday(residentPO.getBirthday()));
+//            residentPO.setDistrictId(-1);
 
             return residentMapper.insert(residentPO);
         }catch (Exception e){

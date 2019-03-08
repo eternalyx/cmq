@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cmq.mapper.ConfigMapper">
+
+    <sql id="selectSql">
+        select
+          `id`,
+          `key`,
+          `value`,
+          `creator_id`,
+          `creator_name`,
+          `create_time`,
+          `last_update_id`,
+          `last_update_name`,
+          `last_update_time`,
+          `is_deleted`
+    </sql>
+
+    <select id="selectByKey" resultType="com.cmq.po.ConfigPO">
+        <include refid="selectSql"/>
+        from sys_config
+        where
+          `key`=#{key}
+          and is_deleted=0
+    </select>
+
+</mapper>

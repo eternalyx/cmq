@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.cmq.common.BaseResult;
 import com.cmq.common.CmqSystem;
 import com.cmq.common.SystemUser;
-import com.cmq.utils.JwtUtil;
+import com.cmq.utils.JwtUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,9 +25,9 @@ public class TokenInterceptor implements HandlerInterceptor {
         String token = httpServletRequest.getHeader("token");
 
         if(!StringUtils.isEmpty(token)){
-            boolean verify = JwtUtil.verify(token);
+            boolean verify = JwtUtils.verify(token);
             if(verify){
-                SystemUser user = new SystemUser(JwtUtil.parseInteger(token, "id"), JwtUtil.parseString(token, "mobile"));
+                SystemUser user = new SystemUser(JwtUtils.parseInteger(token, "id"), JwtUtils.parseString(token, "mobile"));
                 CmqSystem.setCurrentLoggedInUser(user);
                 return true;
             }

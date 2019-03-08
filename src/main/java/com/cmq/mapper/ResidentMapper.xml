@@ -37,6 +37,7 @@
         from sys_resident
         where
           district_id=#{districtId}
+          and creator_id=#{doctorId}
           <if test="condition != null"> and (name=#{condition} or id_card_number=#{condition})</if>
           and is_deleted=0
     </select>
