@@ -143,21 +143,6 @@
   </dependencies>
 
   <build>
-    <finalName>cmq</finalName>
-
-    <resources>
-      <resource>
-        <directory>/src/main/resources</directory>
-      </resource>
-      <!-- 编译时，将src/main目录的文件也编译到classes下 -->
-      <resource>
-        <directory>src/main/java</directory>
-        <includes>
-          <include>**/*.properties</include>
-          <include>**/*.xml</include>
-        </includes>
-      </resource>
-    </resources>
 
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>

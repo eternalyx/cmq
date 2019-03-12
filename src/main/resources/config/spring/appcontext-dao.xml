@@ -19,6 +19,7 @@
         <property name="dataSource" ref="cmqDataSource"/>
         <property name="typeAliasesPackage" value="com.cmq.po"/>
         <property name="configLocation" value="classpath:config/mybatis/mybatis-configuration.xml"/>
+        <property name="mapperLocations" value="classpath*:mappers/*.xml"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
