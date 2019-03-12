@@ -148,7 +148,6 @@
     <resources>
       <resource>
         <directory>/src/main/resources</directory>
-        <filtering>true</filtering>
       </resource>
       <!-- 编译时，将src/main目录的文件也编译到classes下 -->
       <resource>
