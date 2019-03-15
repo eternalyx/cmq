@@ -59,10 +59,10 @@ public class QuestionnaireController {
 
     @ResponseBody
     @RequestMapping(value = "/list-last-every-resident", method = RequestMethod.GET)
-    public BaseResult findLastEveryResident(int districtId, String condition){
+    public BaseResult findLastEveryResident(String condition){
         List<DoneQuestionnaireResidentsResponseBO> bos = new ArrayList<>();
 
-        List<ResidentPO> residentPOS = residentService.findByCondition(districtId, condition);
+        List<ResidentPO> residentPOS = residentService.findByCondition(condition);
         if(CollectionUtils.isEmpty(residentPOS)){
             return new BaseResult();
         }

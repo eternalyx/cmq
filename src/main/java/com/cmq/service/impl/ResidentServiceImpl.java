@@ -27,11 +27,11 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
-    public List<ResidentPO> findByCondition(int districtId, String condition) {
+    public List<ResidentPO> findByCondition(String condition) {
         //仅查询当前登录村医创建的村民
         Integer doctorId = CmqSystem.getCurrentLoggedInUser().getId();
 
-        return residentMapper.findByCondition(districtId, doctorId, condition);
+        return residentMapper.findByCondition(doctorId, condition);
     }
 
     @Override

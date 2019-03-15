@@ -8,7 +8,7 @@ public interface ResidentService {
 
     ResidentPO select(int id);
 
-    List<ResidentPO> findByCondition(int districtId, String condition);
+    List<ResidentPO> findByCondition(String condition);
 
     int insert(ResidentPO residentPO);
 }

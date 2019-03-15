@@ -26,8 +26,8 @@ public class ResidentController {
 
     @ResponseBody
     @RequestMapping(value = "/list-by-condition", method = RequestMethod.GET)
-    public BaseResult findResidentsByCondition(int districtId, String condition){
-        List<ResidentPO> residentPOS = residentService.findByCondition(districtId, condition);
+    public BaseResult findResidentsByCondition(String condition){
+        List<ResidentPO> residentPOS = residentService.findByCondition(condition);
         return new BaseResult().data("residents", residentPOS);
     }
 
