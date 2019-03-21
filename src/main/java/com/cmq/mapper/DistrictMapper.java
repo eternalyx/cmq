@@ -9,4 +9,6 @@ public interface DistrictMapper {
     DistrictPO select(int id);
 
     List<DistrictPO> find(List<Integer> ids);
+
+    List<DistrictPO> findAll();
 }

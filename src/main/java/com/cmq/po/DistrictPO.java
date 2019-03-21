@@ -9,13 +9,15 @@ public class DistrictPO extends BasePO {
 
     private String name;
 
-    private String shortName;
+    private String districtCode;
 
-    private Integer level;
-
-    private Integer sort;
-
-    private Integer parentId;
+//    private String shortName;
+//
+//    private Integer level;
+//
+//    private Integer sort;
+//
+//    private Integer parentId;
 
     public String getName() {
         return name;
@@ -25,35 +27,12 @@ public class DistrictPO extends BasePO {
         this.name = name;
     }
 
-    public String getShortName() {
-        return shortName;
+    public String getDistrictCode() {
+        return districtCode;
     }
 
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
+    public void setDistrictCode(String districtCode) {
+        this.districtCode = districtCode;
     }
 
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
 }
