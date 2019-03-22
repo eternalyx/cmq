@@ -7,8 +7,13 @@ import java.util.List;
 
 public interface DistrictService {
 
+    DistrictPO selectByCode(String districtCode);
+
     List<DistrictPO> find(List<Integer> ids);
 
     List<DistrictTreeBO> findAllDistrictAsTree();
 
+    int insert(DistrictPO districtPO);
+
+    int update(DistrictPO districtPO);
 }

@@ -25,6 +25,14 @@
           and is_deleted=0
     </select>
 
+    <select id="selectByCode" resultType="com.cmq.po.DistrictPO">
+        <include refid="selectSql"/>
+        from sys_district
+        where
+        district_code=#{districtCode}
+        and is_deleted=0
+    </select>
+
     <select id="find" resultType="com.cmq.po.DistrictPO">
         <include refid="selectSql"/>
         from sys_district
@@ -38,4 +46,44 @@
         from sys_district
         where is_deleted=0
     </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.cmq.po.DistrictPO">
+        insert into sys_district
+        (
+          `name`,
+          `district_code`,
+          `creator_id`,
+          `creator_name`,
+          `create_time`,
+          `last_update_id`,
+          `last_update_name`,
+          `last_update_time`,
+          `is_deleted`
+        )
+        values (
+          #{name},
+          #{districtCode},
+          #{creatorId},
+          #{creatorName},
+          now(),
+          #{lastUpdateId},
+          #{lastUpdateName},
+          now(),
+          0
+        )
+    </insert>
+
+    <update id="update" parameterType="com.cmq.po.DistrictPO">
+        update sys_district
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="districtCode != null">district_code=#{districtCode},</if>
+            last_update_id=#{lastUpdateId},
+            last_update_name=#{lastUpdateName},
+            last_update_time=now()
+        </set>
+        where
+        id=#{id}
+        and is_deleted=0
+    </update>
 </mapper>

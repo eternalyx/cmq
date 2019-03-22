@@ -1,11 +1,14 @@
 package com.cmq.service.impl;
 
 import com.cmq.bo.response.DistrictTreeBO;
+import com.cmq.common.CmqSystem;
 import com.cmq.mapper.DistrictMapper;
 import com.cmq.mapper.DoctorDistrictMapper;
 import com.cmq.po.DistrictPO;
 import com.cmq.po.DoctorDistrictPO;
+import com.cmq.po.DoctorPO;
 import com.cmq.service.DistrictService;
+import com.cmq.service.DoctorService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,14 @@ public class DistrictServiceImpl implements DistrictService {
 
     @Resource
     private DistrictMapper districtMapper;
+
+    @Resource
+    private DoctorService doctorService;
+
+    @Override
+    public DistrictPO selectByCode(String districtCode) {
+        return districtMapper.selectByCode(districtCode);
+    }
 
     @Override
     public List<DistrictPO> find(List<Integer> ids) {
@@ -124,6 +135,34 @@ public class DistrictServiceImpl implements DistrictService {
         }
 
         return Collections.singletonList(tree);
+    }
+
+    @Override
+    public int insert(DistrictPO districtPO) {
+        try{
+            DoctorPO currentLoggedInDoctor = doctorService.select(CmqSystem.getCurrentLoggedInUser().getId());
+            districtPO.insert(currentLoggedInDoctor.getId(), currentLoggedInDoctor.getName());
+
+            //校验district code是否重复
+
+            return districtMapper.insert(districtPO);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int update(DistrictPO districtPO) {
+        try{
+            DoctorPO currentLoggedInDoctor = doctorService.select(CmqSystem.getCurrentLoggedInUser().getId());
+            districtPO.update(currentLoggedInDoctor.getId(), currentLoggedInDoctor.getName());
+
+            return districtMapper.update(districtPO);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 }
