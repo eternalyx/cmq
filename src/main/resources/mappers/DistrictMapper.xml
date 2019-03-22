@@ -83,7 +83,17 @@
             last_update_time=now()
         </set>
         where
-        id=#{id}
-        and is_deleted=0
+          id=#{id}
+          and is_deleted=0
+    </update>
+
+    <update id="deleteByCodeWithChildren">
+        update sys_district
+        <set>
+            is_deleted=id
+        </set>
+        where
+          district_code like CONCAT(#{districtCode}, '%')
+          and is_deleted=0
     </update>
 </mapper>

@@ -67,4 +67,16 @@ public class BackDistrictController {
         }
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public BaseResult delete(@RequestBody DistrictRequestBO districtRequestBO){
+        DistrictPO districtPO = districtService.select(districtRequestBO.getId());
+
+        if(!ObjectUtils.isEmpty(districtPO)){
+            districtService.deleteByCodeWithChildren(districtPO.getDistrictCode());
+        }
+
+        return new BaseResult().success("删除成功");
+    }
+
 }

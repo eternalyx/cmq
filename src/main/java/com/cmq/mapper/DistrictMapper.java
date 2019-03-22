@@ -17,4 +17,7 @@ public interface DistrictMapper {
     int insert(DistrictPO districtPO);
 
     int update(DistrictPO districtPO);
+
+    int deleteByCodeWithChildren(String districtCode);
+
 }

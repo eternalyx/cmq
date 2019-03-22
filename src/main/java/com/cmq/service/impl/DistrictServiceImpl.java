@@ -31,6 +31,11 @@ public class DistrictServiceImpl implements DistrictService {
     private DoctorService doctorService;
 
     @Override
+    public DistrictPO select(int id) {
+        return districtMapper.select(id);
+    }
+
+    @Override
     public DistrictPO selectByCode(String districtCode) {
         return districtMapper.selectByCode(districtCode);
     }
@@ -159,6 +164,16 @@ public class DistrictServiceImpl implements DistrictService {
             districtPO.update(currentLoggedInDoctor.getId(), currentLoggedInDoctor.getName());
 
             return districtMapper.update(districtPO);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int deleteByCodeWithChildren(String districtCode) {
+        try {
+            return districtMapper.deleteByCodeWithChildren(districtCode);
         }catch (Exception e){
             e.printStackTrace();
         }

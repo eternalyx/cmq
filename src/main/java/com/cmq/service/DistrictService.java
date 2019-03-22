@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface DistrictService {
 
+    DistrictPO select(int id);
+
     DistrictPO selectByCode(String districtCode);
 
     List<DistrictPO> find(List<Integer> ids);
@@ -16,4 +18,7 @@ public interface DistrictService {
     int insert(DistrictPO districtPO);
 
     int update(DistrictPO districtPO);
+
+    int deleteByCodeWithChildren(String districtCode);
+
 }
