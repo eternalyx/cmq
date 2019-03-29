@@ -20,6 +20,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,6 +54,13 @@ public class BackDoctorController {
     @RequestMapping(value = "/list-by-paging", method = RequestMethod.POST)
     public BaseResult findByPaging(@RequestBody DoctorPageRequestBO params){
         BaseResult result = new BaseResult();
+        if(StringUtils.isEmpty(params.getName())){
+            params.setName(null);
+        }
+
+        if(StringUtils.isEmpty(params.getIdCardNumber())){
+            params.setIdCardNumber(null);
+        }
 
         List<DoctorPO> doctorPOs = doctorService.findByPaging(params);
 
