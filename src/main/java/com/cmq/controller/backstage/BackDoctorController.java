@@ -54,11 +54,11 @@ public class BackDoctorController {
     @RequestMapping(value = "/list-by-paging", method = RequestMethod.POST)
     public BaseResult findByPaging(@RequestBody DoctorPageRequestBO params){
         BaseResult result = new BaseResult();
-        if(StringUtils.isEmpty(params.getName())){
+        if(StringUtils.isEmpty(params.getName().trim())){
             params.setName(null);
         }
 
-        if(StringUtils.isEmpty(params.getIdCardNumber())){
+        if(StringUtils.isEmpty(params.getIdCardNumber().trim())){
             params.setIdCardNumber(null);
         }
 
