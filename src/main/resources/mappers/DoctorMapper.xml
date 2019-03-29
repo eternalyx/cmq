@@ -61,8 +61,8 @@
         <include refid="selectSql"/>
         from sys_doctor
         where is_deleted=0
-          <if test="name != null">and `name`=#{name}</if>
-          <if test="idCardNumber != null">and id_card_number=#{idCardNumber}</if>
+          <if test="name != null and name != '' ">and `name`=#{name}</if>
+          <if test="idCardNumber != null and idCardNumber != '' ">and id_card_number=#{idCardNumber}</if>
         limit #{limit}, #{pageSize}
     </select>
 

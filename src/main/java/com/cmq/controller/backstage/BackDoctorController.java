@@ -168,7 +168,7 @@ public class BackDoctorController {
         List<DoctorDistrictPO> doctorDistrictPOs = doctorDistrictService.findByDoctorId(doctorId);
         if(!CollectionUtils.isEmpty(doctorDistrictPOs)){
             responseBO.setIsResponsible(doctorDistrictPOs.get(0).getIsResponsible());
-            
+
             List<Integer> districtIds = doctorDistrictPOs.stream().map(DoctorDistrictPO::getDistrictId).collect(Collectors.toList());
             responseBO.setDistrictIds(districtIds);
         }
