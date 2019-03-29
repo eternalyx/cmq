@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cmq.mapper.DoctorFunctionMapper">
+
+    <sql id="selectSql">
+        select
+          `id`,
+          `doctor_id`,
+          `function_id`,
+          `creator_id`,
+          `creator_name`,
+          `create_time`,
+          `last_update_id`,
+          `last_update_name`,
+          `last_update_time`,
+          `is_deleted`
+    </sql>
+
+    <select id="findByDoctorId" resultType="com.cmq.po.DoctorFunctionPO">
+        <include refid="selectSql"/>
+        from sys_doctor_function
+        where
+          doctor_id=#{doctorId}
+          and is_deleted=0
+    </select>
+
+    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_doctor_function
+        (
+        `doctor_id`,
+        `function_id`,
+        `creator_id`,
+        `creator_name`,
+        `create_time`,
+        `last_update_id`,
+        `last_update_name`,
+        `last_update_time`,
+        `is_deleted`
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.doctorId},
+            #{item.functionId},
+            #{item.creatorId},
+            #{item.creatorName},
+            now(),
+            #{item.lastUpdateId},
+            #{item.lastUpdateName},
+            now(),
+            0
+            )
+        </foreach>
+    </insert>
+
+    <update id="deleteByDoctorId">
+        update sys_doctor_function
+        <set>
+            is_deleted=id
+        </set>
+        where
+        doctor_id=#{doctorId}
+        and is_deleted=0
+    </update>
+
+</mapper>

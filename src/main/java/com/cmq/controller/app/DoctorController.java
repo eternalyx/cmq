@@ -1,5 +1,6 @@
 package com.cmq.controller.app;
 
+import com.cmq.bo.request.DoctorHandleRequestBO;
 import com.cmq.common.BaseResult;
 import com.cmq.common.CmqSystem;
 import com.cmq.po.DoctorPO;
@@ -60,7 +61,12 @@ public class DoctorController {
             return result.fail("旧密码不正确");
         }
 
-        int change = doctorService.changePassword(doctorPO.getId(), DigestUtils.EncoderByMD5(newPassword));
+        DoctorHandleRequestBO params = new DoctorHandleRequestBO();
+
+        params.setId(doctorPO.getId());
+        params.setPassword(DigestUtils.EncoderByMD5(newPassword));
+
+        int change = doctorService.changePassword(params);
         if(change != 1){
             return result.fail("修改密码失败");
         }

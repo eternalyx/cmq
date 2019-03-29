@@ -11,6 +11,10 @@ public class DoctorDistrictPO extends BasePO {
 
     private Integer districtId;
 
+    private String districtCode;
+
+    private Integer isResponsible;
+
     public Integer getDoctorId() {
         return doctorId;
     }
@@ -25,5 +29,21 @@ public class DoctorDistrictPO extends BasePO {
 
     public void setDistrictId(Integer districtId) {
         this.districtId = districtId;
+    }
+
+    public String getDistrictCode() {
+        return districtCode;
+    }
+
+    public void setDistrictCode(String districtCode) {
+        this.districtCode = districtCode;
+    }
+
+    public Integer getIsResponsible() {
+        return isResponsible;
+    }
+
+    public void setIsResponsible(Integer isResponsible) {
+        this.isResponsible = isResponsible;
     }
 }

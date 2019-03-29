@@ -8,6 +8,8 @@
           `id`,
           `doctor_id`,
           `district_id`,
+          `district_code`,
+          `is_responsible`,
           `creator_id`,
           `creator_name`,
           `create_time`,
@@ -24,5 +26,48 @@
           doctor_id=#{doctorId}
           and is_deleted=0
     </select>
+
+    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_doctor_district
+        (
+          `doctor_id`,
+          `district_id`,
+          `district_code`,
+          `is_responsible`,
+          `creator_id`,
+          `creator_name`,
+          `create_time`,
+          `last_update_id`,
+          `last_update_name`,
+          `last_update_time`,
+          `is_deleted`
+        )
+        values 
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+              #{item.doctorId},
+              #{item.districtId},
+              #{item.districtCode},
+              #{item.isResponsible},
+              #{item.creatorId},
+              #{item.creatorName},
+              now(),
+              #{item.lastUpdateId},
+              #{item.lastUpdateName},
+              now(),
+              0
+            )
+        </foreach>
+    </insert>
+
+    <update id="deleteByDoctorId">
+        update sys_doctor_district
+        <set>
+          is_deleted=id
+        </set>
+        where
+          doctor_id=#{doctorId}
+          and is_deleted=0
+    </update>
 
 </mapper>

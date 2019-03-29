@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World! test deploy~</h2>
+<h2>Hello CMQ!~</h2>
 </body>
 </html>

@@ -1,13 +1,13 @@
 package com.cmq.service;
 
 import com.cmq.bo.request.DoctorConfigurationRequestBO;
-import com.cmq.po.DoctorDistrictPO;
+import com.cmq.po.DoctorFunctionPO;
 
 import java.util.List;
 
-public interface DoctorDistrictService {
+public interface DoctorFunctionService {
 
-    List<DoctorDistrictPO> findByDoctorId(int doctorId);
+    List<DoctorFunctionPO> findByDoctorId(int doctorId);
 
     int insertOrUpdateByDoctorId(DoctorConfigurationRequestBO params, boolean isUpdate);
 }

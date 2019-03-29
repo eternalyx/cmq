@@ -7,12 +7,15 @@
         select
           `id`,
           `name`,
-          `avatar`,
-          `mobile`,
-          `password`,
           `sex`,
+          `mobile`,
           `id_card_number`,
+          `password`,
+          `avatar`,
           `organization`,
+          `hospital_name`,
+          `usage_state`,
+          `memo`,
           `creator_id`,
           `creator_name`,
           `create_time`,
@@ -54,15 +57,81 @@
           and is_deleted=0
     </select>
 
+    <select id="findByPaging" parameterType="com.cmq.bo.request.DoctorPageRequestBO" resultType="com.cmq.po.DoctorPO">
+        <include refid="selectSql"/>
+        from sys_doctor
+        where is_deleted=0
+          <if test="name != null">and `name`=#{name}</if>
+          <if test="idCardNumber != null">and id_card_number=#{idCardNumber}</if>
+        limit #{limit}, #{pageSize}
+    </select>
+
+    <select id="count" parameterType="com.cmq.bo.request.DoctorPageRequestBO" resultType="int">
+        select count(*)
+        from sys_doctor
+        where is_deleted=0
+          <if test="name != null">and `name`=#{name}</if>
+          <if test="idCardNumber != null">and id_card_number=#{idCardNumber}</if>
+    </select>
+
+    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_doctor
+        (
+        `name`,
+        `sex`,
+        `mobile`,
+        `id_card_number`,
+        `password`,
+        `avatar`,
+        `organization`,
+        `hospital_name`,
+        `usage_state`,
+        `memo`,
+
+        `creator_id`,
+        `creator_name`,
+        `create_time`,
+        `last_update_id`,
+        `last_update_name`,
+        `last_update_time`,
+        `is_deleted`
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.name},
+            #{item.sex},
+            #{item.mobile},
+            #{item.idCardNumber},
+            #{item.password},
+            #{item.avatar},
+            #{item.organization},
+            #{item.hospitalName},
+            #{item.usageState},
+            #{item.memo},
+            #{item.creatorId},
+            #{item.creatorName},
+            now(),
+            #{item.lastUpdateId},
+            #{item.lastUpdateName},
+            now(),
+            0
+            )
+        </foreach>
+    </insert>
+
     <update id="update" parameterType="com.cmq.po.DoctorPO">
         update sys_doctor
         <set>
             <if test="name != null">name=#{name},</if>
-            <if test="avatar != null">avatar=#{avatar},</if>
             <if test="sex != null">sex=#{sex},</if>
             <if test="mobile != null">mobile=#{mobile},</if>
             <if test="idCardNumber != null">id_card_number=#{idCardNumber},</if>
+            <if test="avatar != null">avatar=#{avatar},</if>
             <if test="organization != null">organization=#{organization},</if>
+            <if test="hospitalName != null">hospital_name=#{hospitalName},</if>
+            <if test="usageState != null">usage_state=#{usageState},</if>
+            <if test="memo != null">memo=#{memo},</if>
             last_update_id=#{lastUpdateId},
             last_update_name=#{lastUpdateName},
             last_update_time=now()
@@ -72,13 +141,29 @@
           and is_deleted=0
     </update>
 
-    <update id="changePassword">
+    <update id="changePassword" parameterType="com.cmq.bo.request.DoctorHandleRequestBO">
         update sys_doctor
         <set>
-            password=#{password}
+            password=#{password},
+            last_update_id=#{lastUpdateId},
+            last_update_name=#{lastUpdateName},
+            last_update_time=now()
         </set>
         where
           id=#{id}
+          and is_deleted=0
+    </update>
+
+    <update id="changeUsageState" parameterType="com.cmq.bo.request.DoctorHandleRequestBO">
+        update sys_doctor
+        <set>
+            usage_state=#{usageState},
+            last_update_id=#{lastUpdateId},
+            last_update_name=#{lastUpdateName},
+            last_update_time=now()
+        </set>
+        where
+          id in <foreach collection="doctorIds" item="id" open="(" separator="," close=")">#{id}</foreach>
           and is_deleted=0
     </update>
 

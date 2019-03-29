@@ -1,12 +1,21 @@
 package com.cmq.service.impl;
 
+import com.cmq.bo.request.DoctorConfigurationRequestBO;
+import com.cmq.bo.request.DoctorHandleRequestBO;
+import com.cmq.bo.request.DoctorPageRequestBO;
 import com.cmq.common.CmqSystem;
+import com.cmq.common.DoctorUsageStateEnum;
 import com.cmq.mapper.DoctorMapper;
 import com.cmq.po.DoctorPO;
 import com.cmq.service.DoctorService;
+import com.cmq.utils.DigestUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 @Service("doctorService")
@@ -14,6 +23,10 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Resource
     private DoctorMapper doctorMapper;
+
+    private static final String DEFAULT_PASSWORD = "123456";
+
+    private static final String DEFAULT_AVATAR_URI = "http://image.eeesys.com/small/2019/20190318/974979cf_32c6_4a4a_bb7a_044bf2e8f46f.jpg";
 
     @Override
     public DoctorPO select(int id) {
@@ -36,6 +49,38 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public List<DoctorPO> findByPaging(DoctorPageRequestBO params) {
+        return doctorMapper.findByPaging(params);
+    }
+
+    @Override
+    public int count(DoctorPageRequestBO params) {
+        return doctorMapper.count(params);
+    }
+
+    @Override
+    public int insert(DoctorConfigurationRequestBO params) {
+        DoctorPO doctorPO = new DoctorPO();
+
+        BeanUtils.copyProperties(params, doctorPO);
+
+        doctorPO.setPassword(DigestUtils.EncoderByMD5(DEFAULT_PASSWORD));
+        doctorPO.setAvatar(DEFAULT_AVATAR_URI);
+        doctorPO.setUsageState(DoctorUsageStateEnum.ENABLED.getDatabaseCode());
+
+        DoctorPO loginUser = doctorMapper.select(CmqSystem.getCurrentLoggedInUser().getId());
+        doctorPO.insert(loginUser.getId(), loginUser.getName());
+
+        List<DoctorPO> doctorPOs = Arrays.asList(doctorPO);
+
+        doctorMapper.insertBatch(doctorPOs);
+
+        params.setId(doctorPO.getId());
+
+        return 1;
+    }
+
+    @Override
     public int update(DoctorPO doctorPO) {
         try{
             DoctorPO currentLoggedInDoctor = doctorMapper.select(CmqSystem.getCurrentLoggedInUser().getId());
@@ -49,9 +94,50 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public int changePassword(int doctorId, String newPassword) {
+    public int changePassword(DoctorHandleRequestBO params) {
         try{
-            return doctorMapper.changePassword(doctorId, newPassword);
+            DoctorPO currentLoggedInDoctor = doctorMapper.select(CmqSystem.getCurrentLoggedInUser().getId());
+
+            params.setLastUpdateId(currentLoggedInDoctor.getId());
+            params.setLastUpdateName(currentLoggedInDoctor.getName());
+
+            return doctorMapper.changePassword(params);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int resetPassword(DoctorHandleRequestBO params) {
+        try{
+            DoctorPO currentLoggedInDoctor = doctorMapper.select(CmqSystem.getCurrentLoggedInUser().getId());
+
+            params.setLastUpdateId(currentLoggedInDoctor.getId());
+            params.setLastUpdateName(currentLoggedInDoctor.getName());
+
+            params.setPassword(DigestUtils.EncoderByMD5(DEFAULT_PASSWORD));
+
+            return doctorMapper.changePassword(params);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int changeUsageState(DoctorHandleRequestBO params) {
+        try{
+            DoctorPO currentLoggedInDoctor = doctorMapper.select(CmqSystem.getCurrentLoggedInUser().getId());
+
+            params.setLastUpdateId(currentLoggedInDoctor.getId());
+            params.setLastUpdateName(currentLoggedInDoctor.getName());
+
+            if(ArrayUtils.isEmpty(params.getDoctorIds())){
+                params.setDoctorIds(new Integer[]{params.getDoctorId()});
+            }
+
+            return doctorMapper.changeUsageState(params);
         }catch (Exception e){
             e.printStackTrace();
         }

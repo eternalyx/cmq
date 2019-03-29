@@ -1,8 +1,14 @@
-package com.cmq.po;
+package com.cmq.bo.request;
 
-import com.cmq.common.BasePO;
+import java.io.Serializable;
 
-public class DoctorPO extends BasePO {
+public class DoctorConfigurationRequestBO implements Serializable {
+    private static final long serialVersionUID = 4455730348295827130L;
+
+    /**
+     * if id is null, the operation is insert, else it is update
+     */
+    private Integer id;
 
     private String name;
 
@@ -12,17 +18,25 @@ public class DoctorPO extends BasePO {
 
     private String idCardNumber;
 
-    private String password;
-
-    private String avatar;
-
     private String organization;
 
     private String hospitalName;
 
-    private String usageState;
-
     private String memo;
+
+    private Integer isResponsible;
+
+    private Integer[] districtIds;
+
+    private Integer[] functionIds;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -56,22 +70,6 @@ public class DoctorPO extends BasePO {
         this.idCardNumber = idCardNumber;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
     public String getOrganization() {
         return organization;
     }
@@ -88,19 +86,35 @@ public class DoctorPO extends BasePO {
         this.hospitalName = hospitalName;
     }
 
-    public String getUsageState() {
-        return usageState;
-    }
-
-    public void setUsageState(String usageState) {
-        this.usageState = usageState;
-    }
-
     public String getMemo() {
         return memo;
     }
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public Integer getIsResponsible() {
+        return isResponsible;
+    }
+
+    public void setIsResponsible(Integer isResponsible) {
+        this.isResponsible = isResponsible;
+    }
+
+    public Integer[] getDistrictIds() {
+        return districtIds;
+    }
+
+    public void setDistrictIds(Integer[] districtIds) {
+        this.districtIds = districtIds;
+    }
+
+    public Integer[] getFunctionIds() {
+        return functionIds;
+    }
+
+    public void setFunctionIds(Integer[] functionIds) {
+        this.functionIds = functionIds;
     }
 }
