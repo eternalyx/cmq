@@ -1,12 +1,14 @@
 package com.cmq.controller.backstage;
 
 import com.cmq.bo.request.DistrictRequestBO;
+import com.cmq.bo.response.DistrictSelectorResponseBO;
 import com.cmq.bo.response.DistrictTreeBO;
 import com.cmq.common.BaseResult;
 import com.cmq.po.DistrictPO;
 import com.cmq.service.DistrictService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,6 +31,33 @@ public class BackDistrictController {
     public BaseResult findAllDistrictAsTree(){
         List<DistrictTreeBO> tree = districtService.findAllDistrictAsTree();
         return new BaseResult().success().data("tree", tree);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "list-for-selector", method = RequestMethod.GET)
+    public BaseResult findDistricts4Selector(Integer districtId){
+        BaseResult result = new BaseResult();
+
+        List<DistrictSelectorResponseBO> districtBOs = new ArrayList<>();
+
+        List<DistrictPO> districtPOs;
+
+        if(districtId == null){
+            districtPOs = districtService.findProvinces();
+        }else {
+            districtPOs = districtService.findChildrenByParentId(districtId);
+        }
+
+        if(!CollectionUtils.isEmpty(districtPOs)){
+            for(DistrictPO districtPO : districtPOs){
+                DistrictSelectorResponseBO districtBO = new DistrictSelectorResponseBO();
+                BeanUtils.copyProperties(districtPO, districtBO);
+
+                districtBOs.add(districtBO);
+            }
+        }
+
+        return result.data("districts", districtBOs);
     }
 
     @ResponseBody

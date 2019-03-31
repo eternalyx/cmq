@@ -15,6 +15,12 @@ public interface DistrictService {
 
     List<DistrictTreeBO> findAllDistrictAsTree();
 
+    List<DistrictPO> findProvinces();
+
+    List<DistrictPO> findChildrenByParentId(int districtId);
+
+    List<DistrictPO> findChildrenByParentCode(String districtCode);
+
     int insert(DistrictPO districtPO);
 
     int update(DistrictPO districtPO);

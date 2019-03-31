@@ -143,6 +143,22 @@ public class DistrictServiceImpl implements DistrictService {
     }
 
     @Override
+    public List<DistrictPO> findProvinces() {
+        return districtMapper.findProvinces();
+    }
+
+    @Override
+    public List<DistrictPO> findChildrenByParentId(int districtId) {
+        DistrictPO districtPO = districtMapper.select(districtId);
+        return districtMapper.findChildrenByParentDistrictCode(districtPO.getDistrictCode());
+    }
+
+    @Override
+    public List<DistrictPO> findChildrenByParentCode(String districtCode) {
+        return districtMapper.findChildrenByParentDistrictCode(districtCode);
+    }
+
+    @Override
     public int insert(DistrictPO districtPO) {
         try{
             DoctorPO currentLoggedInDoctor = doctorService.select(CmqSystem.getCurrentLoggedInUser().getId());

@@ -18,7 +18,7 @@ public class BackFunctionController {
     private FunctionService functionService;
 
     @ResponseBody
-    @RequestMapping(value = "/list-as-tree", method = RequestMethod.POST)
+    @RequestMapping(value = "/list-as-tree", method = RequestMethod.GET)
     public BaseResult findAllFunctionsAsTree(){
         FunctionTreeBO tree = functionService.findAllFunctionsAsTree();
         return new BaseResult().data("functionTree", tree);

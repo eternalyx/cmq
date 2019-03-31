@@ -1,6 +1,7 @@
 package com.cmq.bo.response;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorConfigurationResponseBO implements Serializable {
@@ -8,6 +9,7 @@ public class DoctorConfigurationResponseBO implements Serializable {
 
     private Integer id;
 
+    @Deprecated
     private String avatar;
 
     private String name;
@@ -22,11 +24,45 @@ public class DoctorConfigurationResponseBO implements Serializable {
 
     private String memo;
 
-    private List<Integer> districtIds;
+    private boolean responsible;
 
+    @Deprecated
     private Integer isResponsible;
 
+    private List<Integer> districtIds;
+
     private List<Integer> functionIds;
+
+    //selector fields
+    //selected values
+    //first => province, and then one by one
+    private Integer first;
+
+    private Integer second;
+
+    private Integer third;
+
+    private Integer fourth;
+
+    private List<Integer> fifth = new ArrayList<>();
+
+    private List<DistrictSelectorResponseBO> provinces = new ArrayList<>();
+
+    private List<DistrictSelectorResponseBO> cities = new ArrayList<>();
+
+    private List<DistrictSelectorResponseBO> areaes = new ArrayList<>();
+
+    private List<DistrictSelectorResponseBO> towns = new ArrayList<>();
+
+    private List<DistrictSelectorResponseBO> villages = new ArrayList<>();
+
+    private boolean isCityShow = false;
+
+    private boolean isAreaShow = false;
+
+    private boolean isTownShow = false;
+
+    private boolean isVillageShow = false;
 
     public Integer getId() {
         return id;
@@ -92,12 +128,12 @@ public class DoctorConfigurationResponseBO implements Serializable {
         this.memo = memo;
     }
 
-    public List<Integer> getDistrictIds() {
-        return districtIds;
+    public boolean isResponsible() {
+        return responsible;
     }
 
-    public void setDistrictIds(List<Integer> districtIds) {
-        this.districtIds = districtIds;
+    public void setResponsible(boolean responsible) {
+        this.responsible = responsible;
     }
 
     public Integer getIsResponsible() {
@@ -108,11 +144,131 @@ public class DoctorConfigurationResponseBO implements Serializable {
         this.isResponsible = isResponsible;
     }
 
+    public List<Integer> getDistrictIds() {
+        return districtIds;
+    }
+
+    public void setDistrictIds(List<Integer> districtIds) {
+        this.districtIds = districtIds;
+    }
+
     public List<Integer> getFunctionIds() {
         return functionIds;
     }
 
     public void setFunctionIds(List<Integer> functionIds) {
         this.functionIds = functionIds;
+    }
+
+    public Integer getFirst() {
+        return first;
+    }
+
+    public void setFirst(Integer first) {
+        this.first = first;
+    }
+
+    public Integer getSecond() {
+        return second;
+    }
+
+    public void setSecond(Integer second) {
+        this.second = second;
+    }
+
+    public Integer getThird() {
+        return third;
+    }
+
+    public void setThird(Integer third) {
+        this.third = third;
+    }
+
+    public Integer getFourth() {
+        return fourth;
+    }
+
+    public void setFourth(Integer fourth) {
+        this.fourth = fourth;
+    }
+
+    public List<Integer> getFifth() {
+        return fifth;
+    }
+
+    public void setFifth(List<Integer> fifth) {
+        this.fifth = fifth;
+    }
+
+    public List<DistrictSelectorResponseBO> getProvinces() {
+        return provinces;
+    }
+
+    public void setProvinces(List<DistrictSelectorResponseBO> provinces) {
+        this.provinces = provinces;
+    }
+
+    public List<DistrictSelectorResponseBO> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<DistrictSelectorResponseBO> cities) {
+        this.cities = cities;
+    }
+
+    public List<DistrictSelectorResponseBO> getAreaes() {
+        return areaes;
+    }
+
+    public void setAreaes(List<DistrictSelectorResponseBO> areaes) {
+        this.areaes = areaes;
+    }
+
+    public List<DistrictSelectorResponseBO> getTowns() {
+        return towns;
+    }
+
+    public void setTowns(List<DistrictSelectorResponseBO> towns) {
+        this.towns = towns;
+    }
+
+    public List<DistrictSelectorResponseBO> getVillages() {
+        return villages;
+    }
+
+    public void setVillages(List<DistrictSelectorResponseBO> villages) {
+        this.villages = villages;
+    }
+
+    public boolean isCityShow() {
+        return isCityShow;
+    }
+
+    public void setCityShow(boolean cityShow) {
+        isCityShow = cityShow;
+    }
+
+    public boolean isAreaShow() {
+        return isAreaShow;
+    }
+
+    public void setAreaShow(boolean areaShow) {
+        isAreaShow = areaShow;
+    }
+
+    public boolean isTownShow() {
+        return isTownShow;
+    }
+
+    public void setTownShow(boolean townShow) {
+        isTownShow = townShow;
+    }
+
+    public boolean isVillageShow() {
+        return isVillageShow;
+    }
+
+    public void setVillageShow(boolean villageShow) {
+        isVillageShow = villageShow;
     }
 }

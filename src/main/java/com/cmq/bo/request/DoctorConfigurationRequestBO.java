@@ -24,6 +24,8 @@ public class DoctorConfigurationRequestBO implements Serializable {
 
     private String memo;
 
+    private boolean responsible;
+
     private Integer isResponsible;
 
     private Integer[] districtIds;
@@ -92,6 +94,14 @@ public class DoctorConfigurationRequestBO implements Serializable {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public boolean isResponsible() {
+        return responsible;
+    }
+
+    public void setResponsible(boolean responsible) {
+        this.responsible = responsible;
     }
 
     public Integer getIsResponsible() {

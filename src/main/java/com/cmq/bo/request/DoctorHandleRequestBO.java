@@ -1,6 +1,9 @@
 package com.cmq.bo.request;
 
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.io.Serializable;
+import java.util.List;
 
 public class DoctorHandleRequestBO implements Serializable {
     private static final long serialVersionUID = 5195193012370683458L;

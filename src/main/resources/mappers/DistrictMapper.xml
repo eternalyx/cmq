@@ -47,6 +47,23 @@
         where is_deleted=0
     </select>
 
+    <select id="findProvinces" resultType="com.cmq.po.DistrictPO">
+        <include refid="selectSql"/>
+        from sys_district
+        where
+          length(district_code)=3
+          and is_deleted=0
+    </select>
+
+    <select id="findChildrenByParentDistrictCode" resultType="com.cmq.po.DistrictPO">
+        <include refid="selectSql"/>
+        from sys_district
+        where
+          district_code like CONCAT(#{districtCode}, '%')
+          and length(district_code)=length(#{districtCode})+2
+          and is_deleted=0
+    </select>
+
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.cmq.po.DistrictPO">
         insert into sys_district
         (

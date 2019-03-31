@@ -63,6 +63,7 @@
         where is_deleted=0
           <if test="name != null and name != '' ">and `name`=#{name}</if>
           <if test="idCardNumber != null and idCardNumber != '' ">and id_card_number=#{idCardNumber}</if>
+        order by create_time desc
         limit #{limit}, #{pageSize}
     </select>
 

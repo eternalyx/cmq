@@ -3,6 +3,7 @@ package com.cmq.controller.backstage;
 import com.cmq.bo.request.DoctorConfigurationRequestBO;
 import com.cmq.bo.request.DoctorHandleRequestBO;
 import com.cmq.bo.request.DoctorPageRequestBO;
+import com.cmq.bo.response.DistrictSelectorResponseBO;
 import com.cmq.bo.response.DoctorConfigurationResponseBO;
 import com.cmq.bo.response.DoctorPageResponseBO;
 import com.cmq.bo.response.DoctorResponseBO;
@@ -142,7 +143,12 @@ public class BackDoctorController {
             params.setOrganization(organization);
         }
 
+        int isResponsible = params.isResponsible() ? 1 : 0;
+        params.setIsResponsible(isResponsible);
+
         boolean isUpdate = params.getId() != null;
+
+        //todo functionIds 排除非叶子节点
 
         if(isUpdate){
             DoctorPO doctorPO = doctorService.select(params.getId());
@@ -187,7 +193,104 @@ public class BackDoctorController {
             responseBO.setFunctionIds(functionIds);
         }
 
+        //responsible
+        boolean responsible = responseBO.getIsResponsible() != null && responseBO.getIsResponsible() == 1;
+        responseBO.setResponsible(responsible);
+
+        responseBO.setProvinces(copyBeans(districtService.findProvinces()));
+
+        //selectors
+        if(!CollectionUtils.isEmpty(doctorDistrictPOs)){
+            for(DoctorDistrictPO doctorDistrictPO : doctorDistrictPOs){
+
+                if(doctorDistrictPO.getDistrictCode().length() == 11){
+                    responseBO.getFifth().add(doctorDistrictPO.getDistrictId());
+                }else if(doctorDistrictPO.getDistrictCode().length() == 9){
+                    responseBO.setFourth(doctorDistrictPO.getDistrictId());
+                }else if(doctorDistrictPO.getDistrictCode().length() == 7){
+                    responseBO.setThird(doctorDistrictPO.getDistrictId());
+                }else if(doctorDistrictPO.getDistrictCode().length() == 5){
+                    responseBO.setSecond(doctorDistrictPO.getDistrictId());
+                }else if(doctorDistrictPO.getDistrictCode().length() == 3){
+                    responseBO.setFirst(doctorDistrictPO.getDistrictId());
+                }
+            }
+
+            if(!CollectionUtils.isEmpty(responseBO.getFifth())){
+                String fifthCode = doctorDistrictPOs.get(0).getDistrictCode();
+                String fourthCode = fifthCode.substring(0, fifthCode.length()-2);
+                DistrictPO districtPO = districtService.selectByCode(fourthCode);
+                responseBO.setFourth(districtPO.getId());
+            }
+            if(responseBO.getFourth() != null){
+                String fourthCode = districtService.select(responseBO.getFourth()).getDistrictCode();
+
+                String thirdCode = fourthCode.substring(0, fourthCode.length()-2);
+                DistrictPO districtPO = districtService.selectByCode(thirdCode);
+                responseBO.setThird(districtPO.getId());
+            }
+            if(responseBO.getThird() != null){
+                String thirdCode = districtService.select(responseBO.getThird()).getDistrictCode();
+
+                String secondCode = thirdCode.substring(0, thirdCode.length()-2);
+                DistrictPO districtPO = districtService.selectByCode(secondCode);
+                responseBO.setSecond(districtPO.getId());
+            }
+
+            if(responseBO.getSecond() != null){
+                String secondCode = districtService.select(responseBO.getSecond()).getDistrictCode();
+
+                String firstCode = secondCode.substring(0, secondCode.length()-2);
+                DistrictPO districtPO = districtService.selectByCode(firstCode);
+                responseBO.setFirst(districtPO.getId());
+            }
+
+            if(responseBO.getFirst() != null){
+                List<DistrictPO> cityPOs = districtService.findChildrenByParentId(responseBO.getFirst());
+                responseBO.setCities(copyBeans(cityPOs));
+
+                responseBO.setCityShow(true);
+            }
+
+            if(responseBO.getSecond() != null){
+                List<DistrictPO> areaPOs = districtService.findChildrenByParentId(responseBO.getSecond());
+                responseBO.setAreaes(copyBeans(areaPOs));
+
+                responseBO.setAreaShow(true);
+            }
+
+            if(responseBO.getThird() != null){
+                List<DistrictPO> townPOs = districtService.findChildrenByParentId(responseBO.getThird());
+                responseBO.setTowns(copyBeans(townPOs));
+
+                responseBO.setTownShow(true);
+            }
+
+            if(responseBO.getFourth() != null){
+                List<DistrictPO> villagePOs = districtService.findChildrenByParentId(responseBO.getFourth());
+                responseBO.setVillages(copyBeans(villagePOs));
+
+                responseBO.setVillageShow(true);
+            }
+
+        }
         return result.data("detail", responseBO);
     }
+
+    private List<DistrictSelectorResponseBO> copyBeans(List<DistrictPO> pos){
+        List<DistrictSelectorResponseBO> bos = new ArrayList<>();
+
+        if(CollectionUtils.isEmpty(pos)){
+            return bos;
+        }
+
+        for(DistrictPO districtPO : pos){
+            DistrictSelectorResponseBO bo = new DistrictSelectorResponseBO();
+            BeanUtils.copyProperties(districtPO, bo);
+            bos.add(bo);
+        }
+        return bos;
+    }
+
 }
 
