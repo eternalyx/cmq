@@ -49,7 +49,6 @@ public class QuestionnaireController {
 
         bo.setResidentName(residentPO.getName());
         bo.setSex(residentPO.getSex());
-        bo.setAge(residentPO.getAge());
         bo.setIdCardNumber(residentPO.getIdCardNumber());
         bo.setDoctorId(questionnairePO.getDoctorId());
         bo.setLastDoneQuestionnaireTime(questionnairePO.getCreateTime());
@@ -91,7 +90,6 @@ public class QuestionnaireController {
             bo.setResidentId(questionnairePO.getResidentId());
             bo.setResidentName(residentPO.getName());
             bo.setSex(residentPO.getSex());
-            bo.setAge(residentPO.getAge());
             bo.setIdCardNumber(residentPO.getIdCardNumber());
             bo.setDoctorId(questionnairePO.getDoctorId());
             bo.setDoctorName(doctorPO.getName());
@@ -129,7 +127,6 @@ public class QuestionnaireController {
             bo.setResidentId(questionnairePO.getResidentId());
             bo.setResidentName(residentPO.getName());
             bo.setSex(residentPO.getSex());
-            bo.setAge(residentPO.getAge());
             bo.setIdCardNumber(residentPO.getIdCardNumber());
             bo.setDoctorId(questionnairePO.getDoctorId());
             bo.setDoctorName(doctorPO.getName());

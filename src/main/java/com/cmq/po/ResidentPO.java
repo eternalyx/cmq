@@ -13,8 +13,8 @@ public class ResidentPO extends BasePO {
 
     private String sex;
 
-    @Deprecated
-    private Integer age;
+    //@Deprecated
+    //private Integer age;
 
     private Date birthday;
 
@@ -26,8 +26,7 @@ public class ResidentPO extends BasePO {
     /** 常住地址 **/
     private String residenceAddress;
 
-    @Deprecated
-    private Integer districtId;
+    //private Integer districtId;
 
     public String getAvatar() {
         return avatar;
@@ -51,14 +50,6 @@ public class ResidentPO extends BasePO {
 
     public void setSex(String sex) {
         this.sex = sex;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public Date getBirthday() {
@@ -93,11 +84,4 @@ public class ResidentPO extends BasePO {
         this.residenceAddress = residenceAddress;
     }
 
-    public Integer getDistrictId() {
-        return districtId;
-    }
-
-    public void setDistrictId(Integer districtId) {
-        this.districtId = districtId;
-    }
 }

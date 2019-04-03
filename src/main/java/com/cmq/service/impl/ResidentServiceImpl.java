@@ -45,8 +45,6 @@ public class ResidentServiceImpl implements ResidentService {
         try{
             DoctorPO currentLoggedInDoctor = doctorService.select(CmqSystem.getCurrentLoggedInUser().getId());
             residentPO.insert(currentLoggedInDoctor.getId(), currentLoggedInDoctor.getName());
-            residentPO.setAge(CommonUtils.calculateAgeByBirthday(residentPO.getBirthday()));
-//            residentPO.setDistrictId(-1);
 
             return residentMapper.insert(residentPO);
         }catch (Exception e){
