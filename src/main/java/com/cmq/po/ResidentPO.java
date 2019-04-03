@@ -13,6 +13,7 @@ public class ResidentPO extends BasePO {
 
     private String sex;
 
+    @Deprecated
     private Integer age;
 
     private Date birthday;
@@ -25,6 +26,7 @@ public class ResidentPO extends BasePO {
     /** 常住地址 **/
     private String residenceAddress;
 
+    @Deprecated
     private Integer districtId;
 
     public String getAvatar() {

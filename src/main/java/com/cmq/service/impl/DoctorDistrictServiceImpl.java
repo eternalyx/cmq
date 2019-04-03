@@ -11,12 +11,10 @@ import com.cmq.service.DoctorDistrictService;
 import com.cmq.service.DoctorService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -35,6 +33,31 @@ public class DoctorDistrictServiceImpl implements DoctorDistrictService {
     @Override
     public List<DoctorDistrictPO> findByDoctorId(int doctorId) {
         return doctorDistrictMapper.findByDoctorId(doctorId);
+    }
+
+    @Override
+    public List<Integer> findSubordinateDoctorIdsByLoginUser() {
+        Set<Integer> doctorIds = new HashSet<>();
+
+        Integer loginUserId = CmqSystem.getCurrentLoggedInUser().getId();
+        doctorIds.add(loginUserId);
+
+        //login-in user districts
+        List<DoctorDistrictPO> loginUserDistricts = doctorDistrictMapper.findByDoctorId(loginUserId);
+        if(!CollectionUtils.isEmpty(loginUserDistricts)){
+            for(DoctorDistrictPO doctorDistrictPO : loginUserDistricts){
+                if(doctorDistrictPO.getIsResponsible() < 1){
+                    continue;
+                }
+
+                List<DoctorDistrictPO> subordinates = doctorDistrictMapper.findSubordinateByDistrictCode(doctorDistrictPO.getDistrictCode());
+                List<Integer> subordinateDoctors = subordinates.stream().map(DoctorDistrictPO::getDoctorId).collect(Collectors.toList());
+                doctorIds.addAll(subordinateDoctors);
+            }
+
+        }
+
+        return new ArrayList<>(doctorIds);
     }
 
     @Override

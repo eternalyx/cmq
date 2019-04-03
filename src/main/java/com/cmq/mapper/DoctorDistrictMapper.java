@@ -8,6 +8,8 @@ public interface DoctorDistrictMapper {
 
     List<DoctorDistrictPO> findByDoctorId(int doctorId);
 
+    List<DoctorDistrictPO> findSubordinateByDistrictCode(String districtCode);
+
     int insertBatch(List<DoctorDistrictPO> list);
 
     int deleteByDoctorId(int doctorId);

@@ -4,6 +4,7 @@ import com.cmq.mapper.ResidentMapper;
 import com.cmq.common.CmqSystem;
 import com.cmq.po.DoctorPO;
 import com.cmq.po.ResidentPO;
+import com.cmq.service.DoctorDistrictService;
 import com.cmq.service.DoctorService;
 import com.cmq.service.ResidentService;
 import com.cmq.utils.CommonUtils;
@@ -21,6 +22,9 @@ public class ResidentServiceImpl implements ResidentService {
     @Resource
     private DoctorService doctorService;
 
+    @Resource
+    private DoctorDistrictService doctorDistrictService;
+
     @Override
     public ResidentPO select(int id) {
         return residentMapper.select(id);
@@ -29,9 +33,11 @@ public class ResidentServiceImpl implements ResidentService {
     @Override
     public List<ResidentPO> findByCondition(String condition) {
         //仅查询当前登录村医创建的村民
-        Integer doctorId = CmqSystem.getCurrentLoggedInUser().getId();
+        //Integer doctorId = CmqSystem.getCurrentLoggedInUser().getId();
 
-        return residentMapper.findByCondition(doctorId, condition);
+        List<Integer> doctorIds = doctorDistrictService.findSubordinateDoctorIdsByLoginUser();
+
+        return residentMapper.findByCondition(doctorIds, condition);
     }
 
     @Override

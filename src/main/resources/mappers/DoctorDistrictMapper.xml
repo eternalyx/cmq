@@ -27,6 +27,14 @@
           and is_deleted=0
     </select>
 
+    <select id="findSubordinateByDistrictCode" resultType="com.cmq.po.DoctorDistrictPO">
+        <include refid="selectSql"/>
+        from sys_doctor_district
+        where
+          district_code like CONCAT(#{districtCode}, '%')
+          and is_deleted=0
+    </select>
+
     <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         insert into sys_doctor_district
         (

@@ -26,6 +26,7 @@ public class DistrictController {
     @Resource
     private DoctorDistrictService doctorDistrictService;
 
+    @Deprecated
     @ResponseBody
     @RequestMapping(value = "/list-by-doctor", method = RequestMethod.GET)
     public BaseResult findDistrictsByDoctor(){
@@ -50,4 +51,5 @@ public class DistrictController {
         }
         return new BaseResult().data("districts", districts);
     }
+
 }

@@ -2,6 +2,7 @@ package com.cmq.controller.app;
 
 import com.cmq.common.BaseResult;
 import com.cmq.common.ConfigKeyEnum;
+import com.cmq.common.DoctorUsageStateEnum;
 import com.cmq.po.ConfigPO;
 import com.cmq.po.DoctorPO;
 import com.cmq.service.ConfigService;
@@ -34,7 +35,8 @@ public class LoginController {
         }
 
         DoctorPO doctor = doctorService.selectByMobile(username.trim());
-        if(doctor == null || doctor.getIsDeleted() > 0){
+        if(doctor == null || doctor.getIsDeleted() > 0
+                || doctor.getUsageState() == DoctorUsageStateEnum.NOT_ENABLED.getDatabaseCode()){
             return result.fail("用户不存在");
         }
 
