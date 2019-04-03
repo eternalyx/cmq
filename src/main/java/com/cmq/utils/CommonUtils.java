@@ -10,6 +10,7 @@ public class CommonUtils {
      * @param birthday
      * @return
      */
+    @Deprecated
     public static int calculateAgeByBirthday(Date birthday){
         int age = 0;
         try {

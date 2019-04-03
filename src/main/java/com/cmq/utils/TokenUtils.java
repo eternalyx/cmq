@@ -11,7 +11,7 @@ import org.springframework.util.StringUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JwtUtils {
+public class TokenUtils {
 
     /**
      * 过期时间

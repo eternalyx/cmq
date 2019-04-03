@@ -8,11 +8,10 @@ import com.cmq.common.DoctorUsageStateEnum;
 import com.cmq.mapper.DoctorMapper;
 import com.cmq.po.DoctorPO;
 import com.cmq.service.DoctorService;
-import com.cmq.utils.DigestUtils;
+import com.cmq.utils.PasswordUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -64,7 +63,7 @@ public class DoctorServiceImpl implements DoctorService {
 
         BeanUtils.copyProperties(params, doctorPO);
 
-        doctorPO.setPassword(DigestUtils.EncoderByMD5(DEFAULT_PASSWORD));
+        doctorPO.setPassword(PasswordUtils.EncoderByMD5(DEFAULT_PASSWORD));
         doctorPO.setAvatar(DEFAULT_AVATAR_URI);
         doctorPO.setUsageState(DoctorUsageStateEnum.ENABLED.getDatabaseCode());
 
@@ -116,7 +115,7 @@ public class DoctorServiceImpl implements DoctorService {
             params.setLastUpdateId(currentLoggedInDoctor.getId());
             params.setLastUpdateName(currentLoggedInDoctor.getName());
 
-            params.setPassword(DigestUtils.EncoderByMD5(DEFAULT_PASSWORD));
+            params.setPassword(PasswordUtils.EncoderByMD5(DEFAULT_PASSWORD));
 
             return doctorMapper.changePassword(params);
         }catch (Exception e){

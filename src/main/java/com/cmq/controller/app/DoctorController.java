@@ -5,7 +5,7 @@ import com.cmq.common.BaseResult;
 import com.cmq.common.CmqSystem;
 import com.cmq.po.DoctorPO;
 import com.cmq.service.DoctorService;
-import com.cmq.utils.DigestUtils;
+import com.cmq.utils.PasswordUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,14 +57,14 @@ public class DoctorController {
         }
 
         DoctorPO doctorPO = doctorService.select(CmqSystem.getCurrentLoggedInUser().getId());
-        if(!DigestUtils.checkPassword(oldPassword.trim(), doctorPO.getPassword())){
+        if(!PasswordUtils.checkPassword(oldPassword.trim(), doctorPO.getPassword())){
             return result.fail("旧密码不正确");
         }
 
         DoctorHandleRequestBO params = new DoctorHandleRequestBO();
 
         params.setId(doctorPO.getId());
-        params.setPassword(DigestUtils.EncoderByMD5(newPassword));
+        params.setPassword(PasswordUtils.EncoderByMD5(newPassword));
 
         int change = doctorService.changePassword(params);
         if(change != 1){

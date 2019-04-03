@@ -7,8 +7,8 @@ import com.cmq.po.ConfigPO;
 import com.cmq.po.DoctorPO;
 import com.cmq.service.ConfigService;
 import com.cmq.service.DoctorService;
-import com.cmq.utils.DigestUtils;
-import com.cmq.utils.JwtUtils;
+import com.cmq.utils.PasswordUtils;
+import com.cmq.utils.TokenUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -40,11 +40,11 @@ public class LoginController {
             return result.fail("用户不存在");
         }
 
-        if(!DigestUtils.checkPassword(password.trim(), doctor.getPassword())){
+        if(!PasswordUtils.checkPassword(password.trim(), doctor.getPassword())){
             return result.fail("密码不正确");
         }
 
-        String token = JwtUtils.sign(doctor);
+        String token = TokenUtils.sign(doctor);
         if(StringUtils.isEmpty(token)){
             return result.fail("系统错误");
         }
