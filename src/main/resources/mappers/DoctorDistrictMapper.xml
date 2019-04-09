@@ -27,6 +27,14 @@
           and is_deleted=0
     </select>
 
+    <select id="findByDistrictCodes" resultType="com.cmq.po.DoctorDistrictPO">
+        <include refid="selectSql"/>
+        from sys_doctor_district
+        where
+          district_code in <foreach collection="list" item="code" open="(" separator="," close=")">#{code}</foreach>
+          and is_deleted=0
+    </select>
+
     <select id="findSubordinateByDistrictCode" resultType="com.cmq.po.DoctorDistrictPO">
         <include refid="selectSql"/>
         from sys_doctor_district

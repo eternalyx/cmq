@@ -15,6 +15,11 @@ public class DistrictRequestBO implements Serializable {
 
     private String districtCode;
 
+    /**  just for update **/
+    private String beforeDistrictCode;
+
+    private Integer isChildren;
+
     public Integer getId() {
         return id;
     }
@@ -37,5 +42,21 @@ public class DistrictRequestBO implements Serializable {
 
     public void setDistrictCode(String districtCode) {
         this.districtCode = districtCode;
+    }
+
+    public String getBeforeDistrictCode() {
+        return beforeDistrictCode;
+    }
+
+    public void setBeforeDistrictCode(String beforeDistrictCode) {
+        this.beforeDistrictCode = beforeDistrictCode;
+    }
+
+    public Integer getIsChildren() {
+        return isChildren;
+    }
+
+    public void setIsChildren(Integer isChildren) {
+        this.isChildren = isChildren;
     }
 }

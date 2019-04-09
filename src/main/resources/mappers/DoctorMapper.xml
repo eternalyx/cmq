@@ -63,6 +63,9 @@
         where is_deleted=0
           <if test="name != null and name != '' ">and `name`=#{name}</if>
           <if test="idCardNumber != null and idCardNumber != '' ">and id_card_number=#{idCardNumber}</if>
+          <if test="searchDoctorIds != null and searchDoctorIds.size > 0">
+              and id in <foreach collection="searchDoctorIds" item="id" open="(" separator="," close=")">#{id}</foreach>
+          </if>
         order by create_time desc
         limit #{limit}, #{pageSize}
     </select>
@@ -73,6 +76,9 @@
         where is_deleted=0
           <if test="name != null">and `name`=#{name}</if>
           <if test="idCardNumber != null">and id_card_number=#{idCardNumber}</if>
+          <if test="searchDoctorIds != null and searchDoctorIds.size > 0">
+              and id in <foreach collection="searchDoctorIds" item="id" open="(" separator="," close=")">#{id}</foreach>
+          </if>
     </select>
 
     <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">

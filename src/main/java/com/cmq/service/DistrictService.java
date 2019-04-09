@@ -13,13 +13,19 @@ public interface DistrictService {
 
     List<DistrictPO> find(List<Integer> ids);
 
+    @Deprecated
     List<DistrictTreeBO> findAllDistrictAsTree();
+
+    //new version for findAllDistrictAsTree
+    List<DistrictTreeBO> findAllDistrictsAsTree();
 
     List<DistrictPO> findProvinces();
 
     List<DistrictPO> findChildrenByParentId(int districtId);
 
     List<DistrictPO> findChildrenByParentCode(String districtCode);
+
+    List<DistrictPO> findChildrenByParentCodes(List<String> districtCodes);
 
     int insert(DistrictPO districtPO);
 

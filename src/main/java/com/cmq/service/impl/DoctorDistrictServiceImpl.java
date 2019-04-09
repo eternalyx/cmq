@@ -36,6 +36,19 @@ public class DoctorDistrictServiceImpl implements DoctorDistrictService {
     }
 
     @Override
+    public List<DoctorDistrictPO> findByDistrictCodes(List<String> districtCodes) {
+        if(CollectionUtils.isEmpty(districtCodes)){
+            return new ArrayList<>();
+        }
+        return doctorDistrictMapper.findByDistrictCodes(districtCodes);
+    }
+
+    @Override
+    public List<DoctorDistrictPO> findSubordinateByDistrictCode(String districtCode) {
+        return doctorDistrictMapper.findSubordinateByDistrictCode(districtCode);
+    }
+
+    @Override
     public List<Integer> findSubordinateDoctorIdsByLoginUser() {
         Set<Integer> doctorIds = new HashSet<>();
 

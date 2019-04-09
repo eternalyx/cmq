@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,8 +30,8 @@ public class BackDistrictController {
     @ResponseBody
     @RequestMapping(value = "/list-as-tree", method = RequestMethod.GET)
     public BaseResult findAllDistrictAsTree(){
-        List<DistrictTreeBO> tree = districtService.findAllDistrictAsTree();
-        return new BaseResult().success().data("tree", tree);
+        List<DistrictTreeBO> tree = districtService.findAllDistrictsAsTree();
+        return new BaseResult().success().data("districtTree", tree);
     }
 
     @ResponseBody
@@ -65,6 +66,10 @@ public class BackDistrictController {
     public BaseResult insertOrUpdate(@RequestBody DistrictRequestBO districtRequestBO){
         BaseResult result = new BaseResult();
 
+        if(!checkDistrictCode(districtRequestBO.getDistrictCode())){
+            return result.fail("请输入3、5、7、9、11位的组织编号");
+        }
+
         DistrictPO districtPO = new DistrictPO();
         BeanUtils.copyProperties(districtRequestBO, districtPO);
 
@@ -72,6 +77,18 @@ public class BackDistrictController {
 
         //insert
         if(districtRequestBO.getId() == null){
+
+            if(districtRequestBO.getIsChildren() == 0){
+                if(districtRequestBO.getBeforeDistrictCode().length() != districtRequestBO.getDistrictCode().length()){
+                    return result.fail("同级组织编号的长度应为：" + districtRequestBO.getBeforeDistrictCode().length());
+                }
+            }
+
+            if(districtRequestBO.getIsChildren() == 1){
+                if((districtRequestBO.getBeforeDistrictCode().length() + 2) != districtRequestBO.getDistrictCode().length()){
+                    return result.fail("下级组织编号的长度应为：" + (districtRequestBO.getBeforeDistrictCode().length() + 2));
+                }
+            }
 
             if(!ObjectUtils.isEmpty(exist)){
                 return result.fail("组织编号已存在");
@@ -107,6 +124,22 @@ public class BackDistrictController {
         }
 
         return new BaseResult().success("删除成功");
+    }
+
+    private boolean checkDistrictCode(String districtCode){
+        if(StringUtils.isEmpty(districtCode)){
+            return false;
+        }
+
+        if(districtCode.length() > 11 || districtCode.length() < 2){
+            return false;
+        }
+
+        if(districtCode.length() % 2 == 0){
+            return false;
+        }
+
+        return true;
     }
 
 }

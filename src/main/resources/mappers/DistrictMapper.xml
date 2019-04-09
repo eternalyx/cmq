@@ -64,6 +64,16 @@
           and is_deleted=0
     </select>
 
+    <select id="findChildrenByParentCodes" resultType="com.cmq.po.DistrictPO">
+        <include refid="selectSql"/>
+        from sys_district
+        where
+        <foreach collection="list" item="code" open="(" separator="or" close=")">
+            district_code like CONCAT(#{code}, '%')
+        </foreach>
+          and is_deleted=0
+    </select>
+
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.cmq.po.DistrictPO">
         insert into sys_district
         (

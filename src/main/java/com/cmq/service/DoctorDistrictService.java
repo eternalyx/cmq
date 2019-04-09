@@ -16,6 +16,10 @@ public interface DoctorDistrictService {
 
     List<DoctorDistrictPO> findByDoctorId(int doctorId);
 
+    List<DoctorDistrictPO> findByDistrictCodes(List<String> districtCodes);
+
+    List<DoctorDistrictPO> findSubordinateByDistrictCode(String districtCode);
+
     List<Integer> findSubordinateDoctorIdsByLoginUser();
 
     int insertOrUpdateByDoctorId(DoctorConfigurationRequestBO params, boolean isUpdate);

@@ -1,6 +1,7 @@
 package com.cmq.service.impl;
 
 import com.cmq.bo.response.DistrictTreeBO;
+import com.cmq.common.BaseResult;
 import com.cmq.common.CmqSystem;
 import com.cmq.mapper.DistrictMapper;
 import com.cmq.mapper.DoctorDistrictMapper;
@@ -143,6 +144,50 @@ public class DistrictServiceImpl implements DistrictService {
     }
 
     @Override
+    public List<DistrictTreeBO> findAllDistrictsAsTree() {
+        List<DistrictTreeBO> tree = new ArrayList<>();
+
+        //for next loop
+        List<DistrictTreeBO> nextParentDistrictBOs = new ArrayList<>();
+
+        //all district
+        List<DistrictPO> allPOs = districtMapper.findAll();
+
+        for(int height = 1; height < 10; height ++){
+            int lengthCode = height * 2 - 1;
+
+            List<DistrictPO> curDistrictPOs = allPOs.stream().filter(districtPO -> districtPO.getDistrictCode().length() == lengthCode).collect(Collectors.toList());
+
+            if(CollectionUtils.isEmpty(curDistrictPOs)){
+                break;
+            }
+
+            List<DistrictTreeBO> curParentDistrictBOs = nextParentDistrictBOs;
+            nextParentDistrictBOs = new ArrayList<>();
+
+            for(DistrictPO districtPO : curDistrictPOs){
+                DistrictTreeBO districtTreeBO = new DistrictTreeBO();
+
+                BeanUtils.copyProperties(districtPO, districtTreeBO);
+
+                nextParentDistrictBOs.add(districtTreeBO);
+
+                if(height > 1){
+                    DistrictTreeBO curParentDistrictBO = curParentDistrictBOs.stream().filter(parentDistrictBO -> districtPO.getDistrictCode().startsWith(parentDistrictBO.getDistrictCode()))
+                            .findFirst().get();
+
+                    curParentDistrictBO.getChildren().add(districtTreeBO);
+                }else {
+                    //height = 1 -> root
+                    tree.add(districtTreeBO);
+                }
+            }
+        }
+
+        return tree;
+    }
+
+    @Override
     public List<DistrictPO> findProvinces() {
         return districtMapper.findProvinces();
     }
@@ -156,6 +201,11 @@ public class DistrictServiceImpl implements DistrictService {
     @Override
     public List<DistrictPO> findChildrenByParentCode(String districtCode) {
         return districtMapper.findChildrenByParentDistrictCode(districtCode);
+    }
+
+    @Override
+    public List<DistrictPO> findChildrenByParentCodes(List<String> districtCodes) {
+        return districtMapper.findChildrenByParentCodes(districtCodes);
     }
 
     @Override

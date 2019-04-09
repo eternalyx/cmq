@@ -19,6 +19,8 @@ public interface DistrictMapper {
 
     List<DistrictPO> findChildrenByParentDistrictCode(String districtCode);
 
+    List<DistrictPO> findChildrenByParentCodes(List<String> districtCodes);
+
     int insert(DistrictPO districtPO);
 
     int update(DistrictPO districtPO);

@@ -1,6 +1,7 @@
 package com.cmq.bo.request;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * accounts management request param accept
@@ -19,6 +20,8 @@ public class DoctorPageRequestBO implements Serializable {
     private int pageNo;
 
     private int limit;
+
+    private List<Integer> searchDoctorIds;
 
     public String getName() {
         return name;
@@ -64,4 +67,11 @@ public class DoctorPageRequestBO implements Serializable {
         return (pageNo - 1) * pageSize;
     }
 
+    public List<Integer> getSearchDoctorIds() {
+        return searchDoctorIds;
+    }
+
+    public void setSearchDoctorIds(List<Integer> searchDoctorIds) {
+        this.searchDoctorIds = searchDoctorIds;
+    }
 }

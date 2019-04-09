@@ -29,10 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.print.Doc;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -62,6 +59,37 @@ public class BackDoctorController {
 //        if(StringUtils.isEmpty(params.getIdCardNumber())){
 //            params.setIdCardNumber(null);
 //        }
+
+        if(!ArrayUtils.isEmpty(params.getDistrictIds())){
+
+            List<DistrictPO> districtPOs = districtService.find(Arrays.asList(params.getDistrictIds()));
+
+            List<String> selectedDistrictCodes = districtPOs.stream().map(DistrictPO::getDistrictCode).collect(Collectors.toList());
+
+            Set<String> filterDistrictCodes = new HashSet<>();
+
+            for(String curDistrictCode : selectedDistrictCodes){
+                for(int i = 1; i<= curDistrictCode.length()/2; i++){
+                    String substring = curDistrictCode.substring(0, curDistrictCode.length() - i * 2);
+                    filterDistrictCodes.add(substring);
+                }
+            }
+
+            List<DistrictPO> superiorDistrictPOs = districtService.findChildrenByParentCodes(selectedDistrictCodes);
+
+            //include selected district codes
+            List<String> superiorDistrictCodes = superiorDistrictPOs.stream().map(DistrictPO::getDistrictCode).collect(Collectors.toList());
+
+            filterDistrictCodes.addAll(superiorDistrictCodes);
+
+            List<Integer> doctorIds = new ArrayList<>();
+            if(!CollectionUtils.isEmpty(filterDistrictCodes)){
+                List<DoctorDistrictPO> doctorDistrictPOs = doctorDistrictService.findByDistrictCodes(new ArrayList<>(filterDistrictCodes));
+                doctorIds= doctorDistrictPOs.stream().map(DoctorDistrictPO::getDoctorId).collect(Collectors.toList());
+            }
+
+            params.setSearchDoctorIds(new ArrayList<>(doctorIds));
+        }
 
         List<DoctorPO> doctorPOs = doctorService.findByPaging(params);
 
