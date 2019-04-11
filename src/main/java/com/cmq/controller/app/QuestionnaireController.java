@@ -53,6 +53,12 @@ public class QuestionnaireController {
         bo.setDoctorId(questionnairePO.getDoctorId());
         bo.setLastDoneQuestionnaireTime(questionnairePO.getCreateTime());
 
+        //new add
+        bo.setAvatar(residentPO.getAvatar());
+        bo.setBirthday(residentPO.getBirthday());
+        bo.setPermanentAddress(residentPO.getPermanentAddress());
+        bo.setResidenceAddress(residentPO.getResidenceAddress());
+
         return new BaseResult().data("questionnaire", bo);
     }
 

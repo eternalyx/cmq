@@ -202,6 +202,7 @@ public class BackDoctorController {
         DoctorConfigurationResponseBO responseBO = new DoctorConfigurationResponseBO();
 
         DoctorPO doctorPO = doctorService.select(doctorId);
+
         BeanUtils.copyProperties(doctorPO, responseBO);
 
         String sex = "男".equals(doctorPO.getSex()) ? 0 + "" : 1 + "";
@@ -226,7 +227,7 @@ public class BackDoctorController {
         responseBO.setResponsible(responsible);
 
         responseBO.setProvinces(copyBeans(districtService.findProvinces()));
-
+//        responseBO.getClass().getMethod()
         //selectors
         if(!CollectionUtils.isEmpty(doctorDistrictPOs)){
             for(DoctorDistrictPO doctorDistrictPO : doctorDistrictPOs){

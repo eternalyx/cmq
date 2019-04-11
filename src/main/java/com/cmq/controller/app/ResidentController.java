@@ -38,7 +38,7 @@ public class ResidentController {
         if(result != 1){
             return new BaseResult().fail("添加居民失败");
         }
-        return new BaseResult().success("添加居民成功");
+        return new BaseResult().success("添加居民成功").data("id", residentPO.getId());
     }
 
     @ResponseBody

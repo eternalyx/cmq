@@ -18,6 +18,14 @@ public class QuestionnaireResponseBO implements Serializable {
 
     private String idCardNumber;
 
+    private String avatar;
+
+    private Date birthday;
+
+    private String permanentAddress;
+
+    private String residenceAddress;
+
     private Integer doctorId;
 
     private String doctorName;
@@ -90,6 +98,38 @@ public class QuestionnaireResponseBO implements Serializable {
 
     public void setIdCardNumber(String idCardNumber) {
         this.idCardNumber = idCardNumber;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getPermanentAddress() {
+        return permanentAddress;
+    }
+
+    public void setPermanentAddress(String permanentAddress) {
+        this.permanentAddress = permanentAddress;
+    }
+
+    public String getResidenceAddress() {
+        return residenceAddress;
+    }
+
+    public void setResidenceAddress(String residenceAddress) {
+        this.residenceAddress = residenceAddress;
     }
 
     public Integer getDoctorId() {
