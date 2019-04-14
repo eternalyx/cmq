@@ -37,6 +37,7 @@
           creator_id in <foreach collection="doctorIds" item="creator_id" open="(" separator="," close=")">#{creator_id}</foreach>
           <if test="condition != null"> and (name=#{condition} or id_card_number=#{condition})</if>
           and is_deleted=0
+        order by create_time desc
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.cmq.po.ResidentPO">
