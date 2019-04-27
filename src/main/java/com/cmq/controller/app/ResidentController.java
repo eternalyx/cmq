@@ -1,10 +1,13 @@
 package com.cmq.controller.app;
 
+import com.cmq.bo.request.ResidentRequestBO;
+import com.cmq.bo.response.ResidentResponseBO;
 import com.cmq.common.BaseResult;
 import com.cmq.po.ResidentPO;
 import com.cmq.service.ResidentService;
 import com.cmq.utils.HttpUtils;
 import com.cmq.utils.IDCardUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +28,14 @@ public class ResidentController {
     private ResidentService residentService;
 
     @ResponseBody
-    @RequestMapping(value = "/list-by-condition", method = RequestMethod.GET)
-    public BaseResult findResidentsByCondition(String condition){
-        List<ResidentPO> residentPOS = residentService.findByCondition(condition);
-        return new BaseResult().data("residents", residentPOS);
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
+    public BaseResult selectDetail(int id){
+        ResidentResponseBO residentResponseBO = new ResidentResponseBO();
+
+        ResidentPO residentPO = residentService.select(id);
+        BeanUtils.copyProperties(residentPO, residentResponseBO);
+
+        return new BaseResult().data("resident", residentResponseBO);
     }
 
     @ResponseBody
@@ -39,6 +46,30 @@ public class ResidentController {
             return new BaseResult().fail("添加居民失败");
         }
         return new BaseResult().success("添加居民成功").data("id", residentPO.getId());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public BaseResult update(@RequestBody ResidentRequestBO residentRequestBO){
+        BaseResult result = new BaseResult();
+
+        ResidentPO residentPO = new ResidentPO();
+        BeanUtils.copyProperties(residentRequestBO, residentPO);
+
+        int update = residentService.update(residentPO);
+
+        if(update != 1){
+            return result.fail("修改失败");
+        }
+        return result.success("修改成功").data("id", residentRequestBO.getId());
+
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/list-by-condition", method = RequestMethod.GET)
+    public BaseResult findResidentsByCondition(String condition){
+        List<ResidentPO> residentPOS = residentService.findByCondition(condition);
+        return new BaseResult().data("residents", residentPOS);
     }
 
     @ResponseBody

@@ -52,4 +52,17 @@ public class ResidentServiceImpl implements ResidentService {
         }
         return 0;
     }
+
+    @Override
+    public int update(ResidentPO residentPO) {
+        try{
+            DoctorPO currentLoggedInDoctor = doctorService.select(CmqSystem.getCurrentLoggedInUser().getId());
+            residentPO.update(currentLoggedInDoctor.getId(), currentLoggedInDoctor.getName());
+
+            return residentMapper.update(residentPO);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionTreeBO implements Serializable {
+public class FunctionTreeResponseBO implements Serializable {
     private static final long serialVersionUID = -4507501315689273960L;
 
     private Integer id;
@@ -13,7 +13,7 @@ public class FunctionTreeBO implements Serializable {
 
     private String label;
 
-    private List<FunctionTreeBO> children = new ArrayList<>();
+    private List<FunctionTreeResponseBO> children = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -35,11 +35,11 @@ public class FunctionTreeBO implements Serializable {
         return name;
     }
 
-    public List<FunctionTreeBO> getChildren() {
+    public List<FunctionTreeResponseBO> getChildren() {
         return children;
     }
 
-    public void setChildren(List<FunctionTreeBO> children) {
+    public void setChildren(List<FunctionTreeResponseBO> children) {
         this.children = children;
     }
 }

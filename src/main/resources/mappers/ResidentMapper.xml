@@ -76,4 +76,23 @@
         )
     </insert>
 
+    <update id="update" parameterType="com.cmq.po.ResidentPO">
+        update sys_resident
+        <set>
+            <if test="avatar != null">avatar=#{avatar},</if>
+            <if test="name != null">name=#{name},</if>
+            <if test="sex != null">sex=#{sex},</if>
+            <if test="birthday != null">birthday=#{birthday},</if>
+            <if test="idCardNumber != null">id_card_number=#{idCardNumber},</if>
+            <if test="permanentAddress != null">permanent_address=#{permanentAddress},</if>
+            <if test="residenceAddress != null">residence_address=#{residenceAddress},</if>
+            last_update_id=#{lastUpdateId},
+            last_update_name=#{lastUpdateName},
+            last_update_time=now()
+        </set>
+        where
+          id=#{id}
+          and is_deleted=0
+    </update>
+
 </mapper>

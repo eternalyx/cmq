@@ -1,8 +1,8 @@
 package com.cmq.service;
 
-import com.cmq.bo.response.FunctionTreeBO;
+import com.cmq.bo.response.FunctionTreeResponseBO;
 
 public interface FunctionService {
 
-    FunctionTreeBO findAllFunctionsAsTree();
+    FunctionTreeResponseBO findAllFunctionsAsTree();
 }

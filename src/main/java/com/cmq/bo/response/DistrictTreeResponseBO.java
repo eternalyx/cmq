@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DistrictTreeBO implements Serializable {
+public class DistrictTreeResponseBO implements Serializable {
     private static final long serialVersionUID = 5203290392867735250L;
 
     private Integer id;
@@ -15,7 +15,7 @@ public class DistrictTreeBO implements Serializable {
 
     private String label;
 
-    private List<DistrictTreeBO> children = new ArrayList<>();
+    private List<DistrictTreeResponseBO> children = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -45,11 +45,11 @@ public class DistrictTreeBO implements Serializable {
         return districtCode + " : " + name;
     }
 
-    public List<DistrictTreeBO> getChildren() {
+    public List<DistrictTreeResponseBO> getChildren() {
         return children;
     }
 
-    public void setChildren(List<DistrictTreeBO> children) {
+    public void setChildren(List<DistrictTreeResponseBO> children) {
         this.children = children;
     }
 }

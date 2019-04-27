@@ -2,7 +2,7 @@ package com.cmq.controller.backstage;
 
 import com.cmq.bo.request.DistrictRequestBO;
 import com.cmq.bo.response.DistrictSelectorResponseBO;
-import com.cmq.bo.response.DistrictTreeBO;
+import com.cmq.bo.response.DistrictTreeResponseBO;
 import com.cmq.common.BaseResult;
 import com.cmq.po.DistrictPO;
 import com.cmq.service.DistrictService;
@@ -30,7 +30,7 @@ public class BackDistrictController {
     @ResponseBody
     @RequestMapping(value = "/list-as-tree", method = RequestMethod.GET)
     public BaseResult findAllDistrictAsTree(){
-        List<DistrictTreeBO> tree = districtService.findAllDistrictsAsTree();
+        List<DistrictTreeResponseBO> tree = districtService.findAllDistrictsAsTree();
         return new BaseResult().success().data("districtTree", tree);
     }
 

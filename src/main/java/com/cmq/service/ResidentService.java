@@ -11,4 +11,6 @@ public interface ResidentService {
     List<ResidentPO> findByCondition(String condition);
 
     int insert(ResidentPO residentPO);
+
+    int update(ResidentPO residentPO);
 }

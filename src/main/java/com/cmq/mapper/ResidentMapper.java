@@ -16,4 +16,6 @@ public interface ResidentMapper {
     List<ResidentPO> findByCondition(@Param("doctorIds") List<Integer> doctorIds, @Param("condition") String condition);
 
     int insert(ResidentPO residentPO);
+
+    int update(ResidentPO residentPO);
 }

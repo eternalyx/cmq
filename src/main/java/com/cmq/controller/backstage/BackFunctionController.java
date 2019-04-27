@@ -1,6 +1,6 @@
 package com.cmq.controller.backstage;
 
-import com.cmq.bo.response.FunctionTreeBO;
+import com.cmq.bo.response.FunctionTreeResponseBO;
 import com.cmq.common.BaseResult;
 import com.cmq.service.FunctionService;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class BackFunctionController {
     @ResponseBody
     @RequestMapping(value = "/list-as-tree", method = RequestMethod.GET)
     public BaseResult findAllFunctionsAsTree(){
-        FunctionTreeBO tree = functionService.findAllFunctionsAsTree();
+        FunctionTreeResponseBO tree = functionService.findAllFunctionsAsTree();
         return new BaseResult().data("functionTree", tree);
     }
 }
