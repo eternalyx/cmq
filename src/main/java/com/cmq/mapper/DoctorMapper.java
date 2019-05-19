@@ -1,9 +1,8 @@
 package com.cmq.mapper;
 
-import com.cmq.bo.request.DoctorHandleRequestBO;
-import com.cmq.bo.request.DoctorPageRequestBO;
+import com.cmq.bo.request.app.DoctorHandleRequestBO;
+import com.cmq.bo.request.app.DoctorPageRequestBO;
 import com.cmq.po.DoctorPO;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

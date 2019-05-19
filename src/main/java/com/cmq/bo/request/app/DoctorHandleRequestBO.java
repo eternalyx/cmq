@@ -1,4 +1,4 @@
-package com.cmq.bo.request;
+package com.cmq.bo.request.app;
 
 import org.springframework.web.bind.annotation.RequestBody;
 

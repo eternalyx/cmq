@@ -1,4 +1,4 @@
-package com.cmq.bo.request;
+package com.cmq.bo.request.app;
 
 import java.io.Serializable;
 import java.util.List;

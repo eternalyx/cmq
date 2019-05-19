@@ -1,6 +1,6 @@
 package com.cmq.service;
 
-import com.cmq.bo.request.DoctorConfigurationRequestBO;
+import com.cmq.bo.request.app.DoctorConfigurationRequestBO;
 import com.cmq.po.DoctorFunctionPO;
 
 import java.util.List;

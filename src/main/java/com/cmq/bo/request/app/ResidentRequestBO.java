@@ -1,10 +1,10 @@
-package com.cmq.bo.response;
+package com.cmq.bo.request.app;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class ResidentResponseBO implements Serializable {
-    private static final long serialVersionUID = -1519540940775111035L;
+public class ResidentRequestBO implements Serializable {
+    private static final long serialVersionUID = 1969267549962137915L;
 
     private Integer id;
 

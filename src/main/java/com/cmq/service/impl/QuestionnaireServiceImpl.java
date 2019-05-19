@@ -1,5 +1,7 @@
 package com.cmq.service.impl;
 
+import com.cmq.bo.request.web.QuestionnaireOperationRequestBO;
+import com.cmq.bo.request.web.QuestionnairePageRequestBO;
 import com.cmq.common.CmqSystem;
 import com.cmq.mapper.QuestionnaireMapper;
 import com.cmq.po.DoctorPO;
@@ -41,6 +43,16 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     }
 
     @Override
+    public List<QuestionnairePO> page(QuestionnairePageRequestBO params) {
+        return questionnaireMapper.page(params);
+    }
+
+    @Override
+    public int count(QuestionnairePageRequestBO params) {
+        return questionnaireMapper.count(params);
+    }
+
+    @Override
     public int insert(QuestionnairePO questionnairePO) {
         try{
             DoctorPO currentLoggedInDoctor = doctorService.select(CmqSystem.getCurrentLoggedInUser().getId());
@@ -64,5 +76,10 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public void deleteSome(QuestionnaireOperationRequestBO params) {
+        questionnaireMapper.deleteSome(params);
     }
 }

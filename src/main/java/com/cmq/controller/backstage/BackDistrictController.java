@@ -1,8 +1,8 @@
 package com.cmq.controller.backstage;
 
-import com.cmq.bo.request.DistrictRequestBO;
-import com.cmq.bo.response.DistrictSelectorResponseBO;
-import com.cmq.bo.response.DistrictTreeResponseBO;
+import com.cmq.bo.request.app.DistrictRequestBO;
+import com.cmq.bo.response.app.DistrictSelectorResponseBO;
+import com.cmq.bo.response.app.DistrictTreeResponseBO;
 import com.cmq.common.BaseResult;
 import com.cmq.po.DistrictPO;
 import com.cmq.service.DistrictService;

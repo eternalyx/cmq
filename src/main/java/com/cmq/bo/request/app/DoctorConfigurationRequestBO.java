@@ -1,10 +1,13 @@
-package com.cmq.bo.response;
+package com.cmq.bo.request.app;
 
 import java.io.Serializable;
 
-public class DoctorResponseBO implements Serializable {
-    private static final long serialVersionUID = -1903494033406236642L;
+public class DoctorConfigurationRequestBO implements Serializable {
+    private static final long serialVersionUID = 4455730348295827130L;
 
+    /**
+     * if id is null, the operation is insert, else it is update
+     */
     private Integer id;
 
     private String name;
@@ -19,7 +22,15 @@ public class DoctorResponseBO implements Serializable {
 
     private String hospitalName;
 
-    private String usageState;
+    private String memo;
+
+    private boolean responsible;
+
+    private Integer isResponsible;
+
+    private Integer[] districtIds;
+
+    private Integer[] functionIds;
 
     public Integer getId() {
         return id;
@@ -77,11 +88,43 @@ public class DoctorResponseBO implements Serializable {
         this.hospitalName = hospitalName;
     }
 
-    public String getUsageState() {
-        return usageState;
+    public String getMemo() {
+        return memo;
     }
 
-    public void setUsageState(String usageState) {
-        this.usageState = usageState;
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public boolean isResponsible() {
+        return responsible;
+    }
+
+    public void setResponsible(boolean responsible) {
+        this.responsible = responsible;
+    }
+
+    public Integer getIsResponsible() {
+        return isResponsible;
+    }
+
+    public void setIsResponsible(Integer isResponsible) {
+        this.isResponsible = isResponsible;
+    }
+
+    public Integer[] getDistrictIds() {
+        return districtIds;
+    }
+
+    public void setDistrictIds(Integer[] districtIds) {
+        this.districtIds = districtIds;
+    }
+
+    public Integer[] getFunctionIds() {
+        return functionIds;
+    }
+
+    public void setFunctionIds(Integer[] functionIds) {
+        this.functionIds = functionIds;
     }
 }

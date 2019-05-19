@@ -1,4 +1,4 @@
-package com.cmq.bo.response;
+package com.cmq.bo.response.app;
 
 import java.io.Serializable;
 import java.util.Date;

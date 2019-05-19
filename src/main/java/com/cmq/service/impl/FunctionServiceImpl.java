@@ -1,6 +1,6 @@
 package com.cmq.service.impl;
 
-import com.cmq.bo.response.FunctionTreeResponseBO;
+import com.cmq.bo.response.app.FunctionTreeResponseBO;
 import com.cmq.mapper.FunctionMapper;
 import com.cmq.po.FunctionPO;
 import com.cmq.service.FunctionService;

@@ -1,7 +1,7 @@
 package com.cmq.controller.app;
 
-import com.cmq.bo.request.ResidentRequestBO;
-import com.cmq.bo.response.ResidentResponseBO;
+import com.cmq.bo.request.app.ResidentRequestBO;
+import com.cmq.bo.response.app.ResidentResponseBO;
 import com.cmq.common.BaseResult;
 import com.cmq.po.ResidentPO;
 import com.cmq.service.ResidentService;

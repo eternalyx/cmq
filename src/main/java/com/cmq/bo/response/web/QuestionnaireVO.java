@@ -1,10 +1,11 @@
-package com.cmq.bo.response;
+package com.cmq.bo.response.web;
 
 import java.io.Serializable;
-import java.util.Date;
 
-public class DoneQuestionnaireResidentsResponseBO implements Serializable {
-    private static final long serialVersionUID = 5203290392867736250L;
+public class QuestionnaireVO implements Serializable {
+    private static final long serialVersionUID = 4201695592125390692L;
+
+    private Integer id;
 
     private Integer residentId;
 
@@ -12,15 +13,23 @@ public class DoneQuestionnaireResidentsResponseBO implements Serializable {
 
     private String sex;
 
-    private Integer age;
-
     private String idCardNumber;
 
     private Integer doctorId;
 
     private String doctorName;
 
-    private Date lastDoneQuestionnaireTime;
+    private Long guidanceTime;
+
+    private String result;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getResidentId() {
         return residentId;
@@ -44,14 +53,6 @@ public class DoneQuestionnaireResidentsResponseBO implements Serializable {
 
     public void setSex(String sex) {
         this.sex = sex;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public String getIdCardNumber() {
@@ -78,11 +79,19 @@ public class DoneQuestionnaireResidentsResponseBO implements Serializable {
         this.doctorName = doctorName;
     }
 
-    public Date getLastDoneQuestionnaireTime() {
-        return lastDoneQuestionnaireTime;
+    public Long getGuidanceTime() {
+        return guidanceTime;
     }
 
-    public void setLastDoneQuestionnaireTime(Date lastDoneQuestionnaireTime) {
-        this.lastDoneQuestionnaireTime = lastDoneQuestionnaireTime;
+    public void setGuidanceTime(Long guidanceTime) {
+        this.guidanceTime = guidanceTime;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 }

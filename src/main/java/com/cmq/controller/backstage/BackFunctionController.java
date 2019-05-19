@@ -1,6 +1,6 @@
 package com.cmq.controller.backstage;
 
-import com.cmq.bo.response.FunctionTreeResponseBO;
+import com.cmq.bo.response.app.FunctionTreeResponseBO;
 import com.cmq.common.BaseResult;
 import com.cmq.service.FunctionService;
 import org.springframework.stereotype.Controller;

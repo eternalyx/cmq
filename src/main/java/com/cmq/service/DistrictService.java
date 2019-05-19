@@ -1,6 +1,6 @@
 package com.cmq.service;
 
-import com.cmq.bo.response.DistrictTreeResponseBO;
+import com.cmq.bo.response.app.DistrictTreeResponseBO;
 import com.cmq.po.DistrictPO;
 
 import java.util.List;

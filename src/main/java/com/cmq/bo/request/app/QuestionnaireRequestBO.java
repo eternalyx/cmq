@@ -1,4 +1,4 @@
-package com.cmq.bo.request;
+package com.cmq.bo.request.app;
 
 public class QuestionnaireRequestBO {
 

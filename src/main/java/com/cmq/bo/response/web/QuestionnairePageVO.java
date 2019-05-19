@@ -1,12 +1,12 @@
-package com.cmq.bo.response;
+package com.cmq.bo.response.web;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class DoctorPageResponseBO implements Serializable {
-    private static final long serialVersionUID = 6808763528741348959L;
+public class QuestionnairePageVO implements Serializable {
+    private static final long serialVersionUID = 1964941630829090944L;
 
-    private List<DoctorResponseBO> doctors;
+    private List<QuestionnaireVO> questionnaires;
 
     private Integer pageSize;
 
@@ -14,12 +14,12 @@ public class DoctorPageResponseBO implements Serializable {
 
     private Integer total;
 
-    public List<DoctorResponseBO> getDoctors() {
-        return doctors;
+    public List<QuestionnaireVO> getQuestionnaires() {
+        return questionnaires;
     }
 
-    public void setDoctors(List<DoctorResponseBO> doctors) {
-        this.doctors = doctors;
+    public void setQuestionnaires(List<QuestionnaireVO> questionnaires) {
+        this.questionnaires = questionnaires;
     }
 
     public Integer getPageSize() {

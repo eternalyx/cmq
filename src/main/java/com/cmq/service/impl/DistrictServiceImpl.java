@@ -1,6 +1,6 @@
 package com.cmq.service.impl;
 
-import com.cmq.bo.response.DistrictTreeResponseBO;
+import com.cmq.bo.response.app.DistrictTreeResponseBO;
 import com.cmq.common.CmqSystem;
 import com.cmq.mapper.DistrictMapper;
 import com.cmq.po.DistrictPO;

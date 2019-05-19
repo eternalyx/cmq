@@ -1,9 +1,8 @@
 package com.cmq.service.impl;
 
-import com.cmq.bo.request.DoctorConfigurationRequestBO;
+import com.cmq.bo.request.app.DoctorConfigurationRequestBO;
 import com.cmq.common.CmqSystem;
 import com.cmq.mapper.DoctorFunctionMapper;
-import com.cmq.po.DistrictPO;
 import com.cmq.po.DoctorFunctionPO;
 import com.cmq.po.DoctorPO;
 import com.cmq.service.DoctorFunctionService;

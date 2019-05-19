@@ -1,11 +1,10 @@
 package com.cmq.service;
 
-import com.cmq.bo.request.DoctorConfigurationRequestBO;
-import com.cmq.bo.request.DoctorHandleRequestBO;
-import com.cmq.bo.request.DoctorPageRequestBO;
+import com.cmq.bo.request.app.DoctorConfigurationRequestBO;
+import com.cmq.bo.request.app.DoctorHandleRequestBO;
+import com.cmq.bo.request.app.DoctorPageRequestBO;
 import com.cmq.po.DoctorPO;
 
-import javax.print.Doc;
 import java.util.List;
 
 public interface DoctorService {

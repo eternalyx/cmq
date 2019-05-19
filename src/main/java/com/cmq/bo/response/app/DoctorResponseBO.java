@@ -1,13 +1,10 @@
-package com.cmq.bo.request;
+package com.cmq.bo.response.app;
 
 import java.io.Serializable;
 
-public class DoctorConfigurationRequestBO implements Serializable {
-    private static final long serialVersionUID = 4455730348295827130L;
+public class DoctorResponseBO implements Serializable {
+    private static final long serialVersionUID = -1903494033406236642L;
 
-    /**
-     * if id is null, the operation is insert, else it is update
-     */
     private Integer id;
 
     private String name;
@@ -22,15 +19,7 @@ public class DoctorConfigurationRequestBO implements Serializable {
 
     private String hospitalName;
 
-    private String memo;
-
-    private boolean responsible;
-
-    private Integer isResponsible;
-
-    private Integer[] districtIds;
-
-    private Integer[] functionIds;
+    private String usageState;
 
     public Integer getId() {
         return id;
@@ -88,43 +77,11 @@ public class DoctorConfigurationRequestBO implements Serializable {
         this.hospitalName = hospitalName;
     }
 
-    public String getMemo() {
-        return memo;
+    public String getUsageState() {
+        return usageState;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
-    }
-
-    public boolean isResponsible() {
-        return responsible;
-    }
-
-    public void setResponsible(boolean responsible) {
-        this.responsible = responsible;
-    }
-
-    public Integer getIsResponsible() {
-        return isResponsible;
-    }
-
-    public void setIsResponsible(Integer isResponsible) {
-        this.isResponsible = isResponsible;
-    }
-
-    public Integer[] getDistrictIds() {
-        return districtIds;
-    }
-
-    public void setDistrictIds(Integer[] districtIds) {
-        this.districtIds = districtIds;
-    }
-
-    public Integer[] getFunctionIds() {
-        return functionIds;
-    }
-
-    public void setFunctionIds(Integer[] functionIds) {
-        this.functionIds = functionIds;
+    public void setUsageState(String usageState) {
+        this.usageState = usageState;
     }
 }

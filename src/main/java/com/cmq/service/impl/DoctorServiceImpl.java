@@ -1,8 +1,8 @@
 package com.cmq.service.impl;
 
-import com.cmq.bo.request.DoctorConfigurationRequestBO;
-import com.cmq.bo.request.DoctorHandleRequestBO;
-import com.cmq.bo.request.DoctorPageRequestBO;
+import com.cmq.bo.request.app.DoctorConfigurationRequestBO;
+import com.cmq.bo.request.app.DoctorHandleRequestBO;
+import com.cmq.bo.request.app.DoctorPageRequestBO;
 import com.cmq.common.CmqSystem;
 import com.cmq.common.DoctorUsageStateEnum;
 import com.cmq.mapper.DoctorMapper;

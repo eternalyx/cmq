@@ -1,12 +1,12 @@
 package com.cmq.controller.backstage;
 
-import com.cmq.bo.request.DoctorConfigurationRequestBO;
-import com.cmq.bo.request.DoctorHandleRequestBO;
-import com.cmq.bo.request.DoctorPageRequestBO;
-import com.cmq.bo.response.DistrictSelectorResponseBO;
-import com.cmq.bo.response.DoctorConfigurationResponseBO;
-import com.cmq.bo.response.DoctorPageResponseBO;
-import com.cmq.bo.response.DoctorResponseBO;
+import com.cmq.bo.request.app.DoctorConfigurationRequestBO;
+import com.cmq.bo.request.app.DoctorHandleRequestBO;
+import com.cmq.bo.request.app.DoctorPageRequestBO;
+import com.cmq.bo.response.app.DistrictSelectorResponseBO;
+import com.cmq.bo.response.app.DoctorConfigurationResponseBO;
+import com.cmq.bo.response.app.DoctorPageResponseBO;
+import com.cmq.bo.response.app.DoctorResponseBO;
 import com.cmq.common.BaseResult;
 import com.cmq.common.DoctorUsageStateEnum;
 import com.cmq.po.DistrictPO;
@@ -21,14 +21,12 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.print.Doc;
 import java.util.*;
 import java.util.stream.Collectors;
 

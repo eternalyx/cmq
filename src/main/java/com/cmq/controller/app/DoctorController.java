@@ -1,6 +1,6 @@
 package com.cmq.controller.app;
 
-import com.cmq.bo.request.DoctorHandleRequestBO;
+import com.cmq.bo.request.app.DoctorHandleRequestBO;
 import com.cmq.common.BaseResult;
 import com.cmq.common.CmqSystem;
 import com.cmq.po.DoctorPO;

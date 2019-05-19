@@ -1,8 +1,8 @@
 package com.cmq.controller.app;
 
-import com.cmq.bo.request.QuestionnaireRequestBO;
-import com.cmq.bo.response.DoneQuestionnaireResidentsResponseBO;
-import com.cmq.bo.response.QuestionnaireResponseBO;
+import com.cmq.bo.request.app.QuestionnaireRequestBO;
+import com.cmq.bo.response.app.DoneQuestionnaireResidentsResponseBO;
+import com.cmq.bo.response.app.QuestionnaireResponseBO;
 import com.cmq.common.BaseResult;
 import com.cmq.common.CmqSystem;
 import com.cmq.po.DoctorPO;
