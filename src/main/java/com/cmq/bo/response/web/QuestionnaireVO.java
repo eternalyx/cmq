@@ -19,7 +19,7 @@ public class QuestionnaireVO implements Serializable {
 
     private String doctorName;
 
-    private Long guidanceTime;
+    private String guidanceTime;
 
     private String result;
 
@@ -79,11 +79,11 @@ public class QuestionnaireVO implements Serializable {
         this.doctorName = doctorName;
     }
 
-    public Long getGuidanceTime() {
+    public String getGuidanceTime() {
         return guidanceTime;
     }
 
-    public void setGuidanceTime(Long guidanceTime) {
+    public void setGuidanceTime(String guidanceTime) {
         this.guidanceTime = guidanceTime;
     }
 
