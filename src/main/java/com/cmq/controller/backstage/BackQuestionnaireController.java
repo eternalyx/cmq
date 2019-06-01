@@ -1,8 +1,6 @@
 package com.cmq.controller.backstage;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONPObject;
-import com.alibaba.fastjson.support.hsf.HSFJSONUtils;
 import com.cmq.bo.request.web.QuestionnaireOperationRequestBO;
 import com.cmq.bo.request.web.QuestionnairePageRequestBO;
 import com.cmq.bo.response.web.QuestionnaireDetailVO;
@@ -11,7 +9,6 @@ import com.cmq.bo.response.web.QuestionnaireScoreVO;
 import com.cmq.bo.response.web.QuestionnaireVO;
 import com.cmq.common.BaseResult;
 import com.cmq.common.CmqSystem;
-import com.cmq.common.SystemUser;
 import com.cmq.po.DoctorPO;
 import com.cmq.po.QuestionnairePO;
 import com.cmq.po.ResidentPO;
@@ -19,14 +16,15 @@ import com.cmq.service.DoctorService;
 import com.cmq.service.QuestionnaireService;
 import com.cmq.service.ResidentService;
 import com.cmq.utils.CommonUtils;
-import org.apache.commons.lang.SystemUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
@@ -35,7 +33,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/web/questionnaire")
+@RequestMapping("/web-questionnaire")
 public class BackQuestionnaireController {
 
     @Autowired
@@ -128,7 +126,7 @@ public class BackQuestionnaireController {
 
 
     @ResponseBody
-    @RequestMapping(value = "delete-some", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete-some", method = RequestMethod.POST)
     public BaseResult deleteSome(@RequestBody QuestionnaireOperationRequestBO params){
         BaseResult result = new BaseResult();
 
@@ -371,32 +369,6 @@ public class BackQuestionnaireController {
             }
         }
         return po;
-    }
-
-    public static void main(String[] args) {
-
-        System.out.println(123);
-        try{
-//            QuestionnaireDetailVO vo = new QuestionnaireDetailVO();
-//            Class<?> clazz = vo.getClass();
-//
-//            Field field = clazz.getDeclaredField("c1");
-//
-//            field.setAccessible(true);
-//
-//            field.set(vo, 2L);
-//            System.out.println(vo.getC1());
-
-            String json = "[3,3,3,3,4,4,4,4,1,2,4,4,2,2,3,2,1,2,2,2,4,2,4,1,1,4,4,1,1,4,1,1,1]";
-            String substring = json.substring(1, json.length() - 1);
-            System.out.println(substring);
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
     }
 
 }
