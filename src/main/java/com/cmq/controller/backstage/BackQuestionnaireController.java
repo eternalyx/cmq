@@ -235,7 +235,7 @@ public class BackQuestionnaireController {
             }
         }
 
-        vo.setDate(questionnairePO.getCreateTime().toString());
+        vo.setDate(sdf.format(questionnairePO.getCreateTime()));
 
         DoctorPO doctorPO = doctorService.select(questionnairePO.getDoctorId());
         vo.setOp(doctorPO.getName());
