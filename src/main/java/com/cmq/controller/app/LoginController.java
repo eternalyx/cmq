@@ -49,7 +49,7 @@ public class LoginController {
             return result.fail("系统错误");
         }
 
-        return result.success("登录成功").data("token", token);
+        return result.success("登录成功").data("token", token).data("doctorName", doctor.getName());
     }
 
     @ResponseBody
