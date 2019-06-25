@@ -295,6 +295,7 @@ public class BackQuestionnaireController {
         vo.setAddress(resident.getPermanentAddress());
         vo.setSex(resident.getSex());
         vo.setBirthdayStr(sdf.format(resident.getBirthday()));
+        vo.setBirthday(resident.getBirthday());
         vo.setIdCardNumber(resident.getIdCardNumber());
         vo.setAge(CommonUtils.calculateAgeByBirthday(resident.getBirthday()));
         vo.setResidentPhone("");
