@@ -10,9 +10,11 @@ import com.cmq.bo.response.web.QuestionnaireVO;
 import com.cmq.common.BaseResult;
 import com.cmq.common.CmqSystem;
 import com.cmq.po.DoctorPO;
+import com.cmq.po.GuidancePO;
 import com.cmq.po.QuestionnairePO;
 import com.cmq.po.ResidentPO;
 import com.cmq.service.DoctorService;
+import com.cmq.service.GuidanceService;
 import com.cmq.service.QuestionnaireService;
 import com.cmq.service.ResidentService;
 import com.cmq.utils.CommonUtils;
@@ -28,8 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -45,8 +46,25 @@ public class BackQuestionnaireController {
     @Autowired
     private DoctorService doctorService;
 
+    @Autowired
+    private GuidanceService guidanceService;
+
     private static final String[] constitutions =
             new String[]{"qixu", "yangxu", "yinxu", "tanshi", "shire", "xueyu", "qiyu", "tebing", "pinghe"};
+
+    private static final Map<String, String> CHINESE_CONSTITUTIONS = new HashMap<String, String>() {
+        {
+            put("qixu", "气虚质");
+            put("yangxu", "阳虚质");
+            put("yinxu", "阴虚质");
+            put("tanshi", "痰湿质");
+            put("shire", "湿热质");
+            put("xueyu", "血瘀质");
+            put("qiyu", "气郁质");
+            put("tebing", "特禀质");
+            put("pinghe", "平和质");
+        }
+    };
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -192,6 +210,9 @@ public class BackQuestionnaireController {
         Class<? extends QuestionnaireDetailVO> vClass = vo.getClass();
         Class<? extends QuestionnairePO> pClass = questionnairePO.getClass();
 
+        //all guidance
+        List<GuidancePO> guidancePOS = guidanceService.findAll();
+
         //options
         String option = questionnairePO.getOptions();
         String[] options = option.substring(1, option.length() - 1).split(",");
@@ -205,8 +226,12 @@ public class BackQuestionnaireController {
             }
         }
 
+        StringBuilder advice = new StringBuilder();
+        StringBuilder otherAdvice = new StringBuilder().append("&nbsp&nbsp");
+
         for(int index = 0; index < constitutions.length; index++){
             String constitution = constitutions[index];
+            String chinese = CHINESE_CONSTITUTIONS.get(constitution);
             try {
                 Field pField = pClass.getDeclaredField(constitution);
                 pField.setAccessible(true);
@@ -230,6 +255,31 @@ public class BackQuestionnaireController {
                 Field vOther = vClass.getDeclaredField(constitution + "Other");
                 vOther.setAccessible(true);
                 vOther.set(vo, scoreVO.getGuidanceOther());
+
+                //拼接建议
+                if(scoreVO.getResult().equals("是") || scoreVO.getResult().equals("倾向是")){
+                    if(!StringUtils.isEmpty(scoreVO.getGuidance())){
+                        String[] serials = scoreVO.getGuidance().substring(1, scoreVO.getGuidance().length() - 1).split(",");
+                        List<String> listSerials = Arrays.asList(serials);
+
+                        if(!StringUtils.isEmpty(scoreVO.getGuidanceOther())){
+                            otherAdvice.append(scoreVO.getGuidanceOther()).append("。");
+                        }
+
+                        if(serials.length > 0){
+                            advice.append("<br>&nbsp&nbsp").append(chinese).append("的人");
+
+                            List<GuidancePO> guidances = guidancePOS.stream().filter(guidance -> guidance.getConstitutionalType().equals(chinese))
+                                    .collect(Collectors.toList());
+
+                            for(GuidancePO guidancePO : guidances){
+                                if (listSerials.contains("\"" + guidancePO.getSerialNumber() + "\"")){
+                                    advice.append("应").append(guidancePO.getGuidanceDetails());
+                                }
+                            }
+                        }
+                    }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -244,9 +294,17 @@ public class BackQuestionnaireController {
         vo.setResidentName(resident.getName());
         vo.setAddress(resident.getPermanentAddress());
         vo.setSex(resident.getSex());
-        vo.setBirthday(resident.getBirthday());
+        vo.setBirthdayStr(sdf.format(resident.getBirthday()));
         vo.setIdCardNumber(resident.getIdCardNumber());
         vo.setAge(CommonUtils.calculateAgeByBirthday(resident.getBirthday()));
+        vo.setResidentPhone("");
+
+        vo.setDoctorAddress(doctorPO.getOrganization() + doctorPO.getHospitalName());
+        vo.setDoctorPhone(doctorPO.getMobile());
+
+        //详细建议
+        vo.setAdvice(advice.toString());
+        vo.setOtherAdvice(otherAdvice.toString());
         return vo;
     }
 

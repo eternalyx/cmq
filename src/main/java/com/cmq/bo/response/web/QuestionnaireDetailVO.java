@@ -96,6 +96,10 @@ public class QuestionnaireDetailVO implements Serializable {
      */
     private String op;
 
+    private String doctorAddress;
+
+    private String doctorPhone;
+
     private String residentName;
 
     private String address;
@@ -106,7 +110,15 @@ public class QuestionnaireDetailVO implements Serializable {
 
     private Date birthday;
 
+    private String birthdayStr;
+
+    private String residentPhone;
+
     private Integer age;
+
+    private String advice;
+
+    private String otherAdvice;
 
     public Integer getId() {
         return id;
@@ -684,6 +696,22 @@ public class QuestionnaireDetailVO implements Serializable {
         this.op = op;
     }
 
+    public String getDoctorAddress() {
+        return doctorAddress;
+    }
+
+    public void setDoctorAddress(String doctorAddress) {
+        this.doctorAddress = doctorAddress;
+    }
+
+    public String getDoctorPhone() {
+        return doctorPhone;
+    }
+
+    public void setDoctorPhone(String doctorPhone) {
+        this.doctorPhone = doctorPhone;
+    }
+
     public String getResidentName() {
         return residentName;
     }
@@ -724,11 +752,43 @@ public class QuestionnaireDetailVO implements Serializable {
         this.birthday = birthday;
     }
 
+    public String getBirthdayStr() {
+        return birthdayStr;
+    }
+
+    public void setBirthdayStr(String birthdayStr) {
+        this.birthdayStr = birthdayStr;
+    }
+
+    public String getResidentPhone() {
+        return residentPhone;
+    }
+
+    public void setResidentPhone(String residentPhone) {
+        this.residentPhone = residentPhone;
+    }
+
     public Integer getAge() {
         return age;
     }
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public String getAdvice() {
+        return advice;
+    }
+
+    public void setAdvice(String advice) {
+        this.advice = advice;
+    }
+
+    public String getOtherAdvice() {
+        return otherAdvice;
+    }
+
+    public void setOtherAdvice(String otherAdvice) {
+        this.otherAdvice = otherAdvice;
     }
 }
